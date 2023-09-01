@@ -3,7 +3,7 @@ const {StatusCodes: HttpStatus} = require("http-status-code");
 const bcrypt=require('bcrypt');
 const  empty = require('is-empty');
 const jwt = require("jsonwebtoken");
-
+const ObjectId=require('mongoose').Types.ObjectId;
 async function CheckExistUser(username){
     const exist=await UserModel.findOne({userName:username})
     if(empty(exist)){
@@ -31,8 +31,6 @@ function compareHashPass(password,userInter){
 function codeERSali(){
     return Math.round(Math.random()*100000)
 }
-
-
 function CreatedJWT(jsonData,key){
     return jwt.sign(jsonData, key,{ expiresIn: '1h' })
 }
@@ -63,8 +61,48 @@ function checkRefreshToken(RefreshToken,keyRefreshToken){
 function checkAccessesToken(AccessToken,keyReToken){
     return jwt.verify(AccessToken, keyReToken)
 }
+function CheckIsEmpty(check,Statuscode,locationProblem,modify){
+    if(!check){
+        return res.status(Statuscode).json({
+            statusCodes: Statuscode,
+            where: locationProblem,
+            Modified: modify,
+            Error:"is Empty "
+        });
+    }
+    return true
+}
+function theFormOfAnswer(result,Statuscode,locationProblem,modify){
+        return res.status(Statuscode).json({
+            statusCodes: Statuscode,
+            where: locationProblem,
+            Modified: modify,
+            result
+        });
+    
+}
+function ErrorJsonForm(Error,Statuscode,locationProblem,modify){
+    return res.status(Statuscode).json({
+        statusCodes: Statuscode,
+        where: locationProblem,
+        Modified: modify,
+        Error
+    });
 
-
+}
+function checkIsNumber(value){
+    if(typeof value === 'number') return true ;
+    return false 
+}
+function isValidObjectId(id){
+     
+    if(ObjectId.isValid(id)){
+        if((String)(new ObjectId(id)) === id)
+            return true;       
+        return false;
+    }
+    return false;
+}
 module.exports={
     CheckExistUser,
     newHashPass,
@@ -74,6 +112,11 @@ module.exports={
     CreatedRefreshJWT,
     CreatedRefreshIfJWT,
     checkRefreshToken,
-    checkAccessesToken
+    checkAccessesToken,
+    CheckIsEmpty,
+    theFormOfAnswer,
+    isValidObjectId,
+    checkIsNumber,
+    ErrorJsonForm
 
 }

@@ -100,6 +100,7 @@ class UserControllerClass extends Controller{
                 Modified:false,
                 Error:error
             });
+            next(error)
         }
        }
 
