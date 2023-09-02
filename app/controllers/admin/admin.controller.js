@@ -103,7 +103,7 @@ class AdminController extends Controller{
         }
     }
 
-    async put_updateListProductBrands(req,res,next){
+    async put_updateListProductIntoBrands(req,res,next){
         try {
             let location='/AdminControllerClass/updateListProductBrands';
 
@@ -197,7 +197,7 @@ class AdminController extends Controller{
         }
     }
 
-    async put_updateListProductsCategory(req,res,next){
+    async put_updateListProductsIntoCategory(req,res,next){
         try {
             let location='/AdminControllerClass/put_updateListProductsCategory';
 
