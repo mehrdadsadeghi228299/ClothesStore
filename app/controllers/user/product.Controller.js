@@ -6,6 +6,7 @@ const { StatusCodes: HttpStatus } = require("http-status-codes");
 const { BrandsModel } = require("../../models/brands.model");
 
 class ProductController extends Controller {
+        /* ***********************************               products Area                           **************************** */ 
 
 
     async getListProduct(req, res, next) {
@@ -18,7 +19,8 @@ class ProductController extends Controller {
 
 
         } catch (error) {
-            
+            ErrorJsonForm(error,HttpStatus.INTERNAL_SERVER_ERROR,'/UserControllerClass/getListBrandsWithProduct',false);
+
             next(error);
         }
     }
@@ -36,6 +38,8 @@ class ProductController extends Controller {
 
          
         } catch (error) {
+            ErrorJsonForm(error,HttpStatus.INTERNAL_SERVER_ERROR,'/UserControllerClass/getListBrandsWithProduct',false);
+
             next(error);
         }
     }
@@ -58,9 +62,13 @@ class ProductController extends Controller {
 
          
         } catch (error) {
+            ErrorJsonForm(error,HttpStatus.INTERNAL_SERVER_ERROR,'/UserControllerClass/getListBrandsWithProduct',false);
+
             next(error);
         }
     }
+
+            /* ***********************************             Category   Area                           **************************** */ 
 
     async getListCategory(req, res, next) {
         try {
@@ -72,12 +80,8 @@ class ProductController extends Controller {
             theFormOfAnswer(findProduct,HttpStatus.OK,'/ProductControllerClass/getListCategory',false);
 
         } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
-                where: '/UserControllerClass/checkIsModifyAndSendCodeAccount',
-                Modified: false,
-                Error: error
-            });
+            ErrorJsonForm(error,HttpStatus.INTERNAL_SERVER_ERROR,'/UserControllerClass/getListBrandsWithProduct',false);
+
             next(error);
         }
     }
@@ -93,12 +97,8 @@ class ProductController extends Controller {
             theFormOfAnswer(findProduct,HttpStatus.OK,'/ProductControllerClass/getListCategory',false);
 
         } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
-                where: '/UserControllerClass/checkIsModifyAndSendCodeAccount',
-                Modified: false,
-                Error: error
-            });
+            ErrorJsonForm(error,HttpStatus.INTERNAL_SERVER_ERROR,'/UserControllerClass/getListBrandsWithProduct',false);
+
             next(error);
         }
     }
@@ -114,15 +114,13 @@ class ProductController extends Controller {
             theFormOfAnswer(findCategory,HttpStatus.OK,'/ProductControllerClass/getListCategory',false);
 
         } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
-                where: '/UserControllerClass/checkIsModifyAndSendCodeAccount',
-                Modified: false,
-                Error: error
-            });
+            ErrorJsonForm(error,HttpStatus.INTERNAL_SERVER_ERROR,'/UserControllerClass/getListBrandsWithProduct',false);
+
             next(error);
         }
     }
+
+                /* ***********************************             Brands    Area                           **************************** */ 
 
     async getListBrands(req, res, next) {
         try {
@@ -134,12 +132,8 @@ class ProductController extends Controller {
             theFormOfAnswer(findBrands,HttpStatus.OK,'/ProductControllerClass/getListCategory',false);
 
         } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
-                where: '/UserControllerClass/checkIsModifyAndSendCodeAccount',
-                Modified: false,
-                Error: error
-            });
+            ErrorJsonForm(error,HttpStatus.INTERNAL_SERVER_ERROR,'/UserControllerClass/getListBrandsWithProduct',false);
+
             next(error);
         }
     }
@@ -154,12 +148,8 @@ class ProductController extends Controller {
             theFormOfAnswer(findBrands,HttpStatus.OK,'/ProductControllerClass/getListCategory',false);
 
         } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
-                where: '/UserControllerClass/checkIsModifyAndSendCodeAccount',
-                Modified: false,
-                Error: error
-            });
+            ErrorJsonForm(error,HttpStatus.INTERNAL_SERVER_ERROR,'/UserControllerClass/getListBrandsWithProduct',false);
+            
             next(error);
         }
     } 
@@ -176,12 +166,8 @@ class ProductController extends Controller {
             theFormOfAnswer(findBrands,HttpStatus.OK,'/ProductControllerClass/getListCategory',false);
 
         } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
-                where: '/UserControllerClass/checkIsModifyAndSendCodeAccount',
-                Modified: false,
-                Error: error
-            });
+            ErrorJsonForm(error,HttpStatus.INTERNAL_SERVER_ERROR,'/UserControllerClass/getListBrandsWithProduct',false);
+            
             next(error);
         }
     }

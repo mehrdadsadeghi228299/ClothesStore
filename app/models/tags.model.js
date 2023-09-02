@@ -4,7 +4,7 @@ const{ProductModel}=require('./products.model');
 
 
 const TagsSchema = new mongoose.Schema({
-    name:{type:[String]},
+    name:{type:String,require:true},
     user_id : {type : mongoose.Types.ObjectId,ref:'UserModel'},
     product_id : {type :[ mongoose.Types.ObjectId],ref:'ProductModel'},
     

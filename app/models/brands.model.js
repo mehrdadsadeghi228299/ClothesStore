@@ -1,26 +1,25 @@
 const { default: mongoose } = require("mongoose");
 const schema = new mongoose.Schema({
-    populatedField: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'ForeignModel',
-      // The below option tells this plugin to always call `populate()` on
-      // `populatedField`
-      autopopulate: true
-    }
-  });
+  populatedField: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'ForeignModel',
+    // `populatedField`
+    autopopulate: true
+  }
+});
 
-const BrandsSchema=new mongoose.Schema({
-    Name:{type:String,require:true},
-    date:{type:Date,require:true},
-    Author:{
-        name:String,
-        age:Int16Array,
-    },
-    ListProduct : {type :[ mongoose.Types.ObjectId],ref:'ProductModel',autopopulate:true},
-
+const BrandsSchema = new mongoose.Schema({
+  Name: { type: String, require: true },
+  date: { type: Date, require: true },
+  Author: {
+    name: String,
+    age: Int16Array,
+  },
+  ListProduct: { type: [mongoose.Types.ObjectId], ref: 'ProductModel', autopopulate: true },
+  enableSailing: { type: Boolean, default: false }
 });
 
 
-module.exports={
-    BrandsModel:mongoose.model('BrandsSchema',BrandsSchema)
+module.exports = {
+  BrandsModel: mongoose.model('BrandsSchema', BrandsSchema)
 }

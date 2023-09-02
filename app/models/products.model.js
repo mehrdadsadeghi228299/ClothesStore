@@ -1,4 +1,5 @@
 const { default: mongoose } = require("mongoose");
+
 const {UserModel} = require("./user.model");
 const {TagsModel} = require("./tags.model");
 const { BrandsModel } = require("./brands.model");
@@ -7,10 +8,11 @@ const { BrandsModel } = require("./brands.model");
 const ProductSchema=new mongoose.Schema({
     Name:{type:String,require:true},
     title:{type:String,require:true},
-    brand:{type:BrandsModel,require:true},
-    tags : {type: [TagsModel], default : []},
+    brand_id:{type:mongoose.Types.ObjectId,ref:'BrandsModel',require:true},
+    tags : {type: [mongoose.Types.ObjectId], ref:'TagsModel',default : []},
     images : {type: [String], required : true},
     shortDescription:{type:String,require:true},
+    categoryFatherId:{type:mongoose.Types.ObjectId,ref:'CategoryModel',require:true},
     Description:{type:String,require:true},
     productCode:{type:Number ,unique:true},
     size:{type:[String],require:true},
@@ -39,9 +41,6 @@ const ProductSchema=new mongoose.Schema({
         colors : [],
         madeIn : ""
     }},
-    
-
-
 },{
     timestamps:true
 });

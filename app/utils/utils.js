@@ -1,87 +1,89 @@
 const { UserModel } = require("../models/user.model");
-const {StatusCodes: HttpStatus} = require("http-status-code");
-const bcrypt=require('bcrypt');
-const  empty = require('is-empty');
+const { StatusCodes: HttpStatus } = require("http-status-code");
+const bcrypt = require('bcrypt');
+const empty = require('is-empty');
 const jwt = require("jsonwebtoken");
-const ObjectId=require('mongoose').Types.ObjectId;
-async function CheckExistUser(username){
-    const exist=await UserModel.findOne({userName:username})
-    if(empty(exist)){
-         return  res.status(HttpStatus.BAD_REQUEST).json({
-        statusCodes:HttpStatus.BAD_REQUEST,
-        where:'/UserControllerClass/signupUser',
-        message:errorValidator
-            });
-        }  
+const ObjectId = require('mongoose').Types.ObjectId;
+
+
+async function CheckExistUser(username) {
+    const exist = await UserModel.findOne({ userName: username })
+    if (empty(exist)) {
+        return res.status(HttpStatus.BAD_REQUEST).json({
+            statusCodes: HttpStatus.BAD_REQUEST,
+            where: '/UserControllerClass/signupUser',
+            message: errorValidator
+        });
+    }
     return false
 }
 
-function newGenSalt(){
-    return newPass= bcrypt.genSaltSync(12)
+function newGenSalt() {
+    return newPass = bcrypt.genSaltSync(12)
 
 }
-function newHashPass(password){
-    return newPass= bcrypt.hashSync(password,newGenSalt())
+function newHashPass(password) {
+    return newPass = bcrypt.hashSync(password, newGenSalt())
 
 }
-function compareHashPass(password,userInter){
-    return newPass= bcrypt.compareSync(password,userInter)
+function compareHashPass(password, userInter) {
+    return newPass = bcrypt.compareSync(password, userInter)
 
 }
-function codeERSali(){
-    return Math.round(Math.random()*100000)
+function codeERSali() {
+    return Math.round(Math.random() * 100000)
 }
-function CreatedJWT(jsonData,key){
-    return jwt.sign(jsonData, key,{ expiresIn: '1h' })
+function CreatedJWT(jsonData, key) {
+    return jwt.sign(jsonData, key, { expiresIn: '1h' })
 }
-function CreatedRefreshJWT(jsonData,key){
-    return jwt.sign(jsonData, key,{ expiresIn: '1y' })
+function CreatedRefreshJWT(jsonData, key) {
+    return jwt.sign(jsonData, key, { expiresIn: '1y' })
 }
-function CreatedRefreshIfJWT(RefreshToken,key,jsonData,keyAccessToken){
-    jwt.verify(RefreshToken,key, (err, user) => {
+function CreatedRefreshIfJWT(RefreshToken, key, jsonData, keyAccessToken) {
+    jwt.verify(RefreshToken, key, (err, user) => {
         if (err) {
-            return  res.status(HttpStatus.BAD_REQUEST).json({
-                statusCodes:HttpStatus.BAD_REQUEST,
-                where:'/utils/CreatedRefreshIfJWT',
-                message:err
-                    });
-                } 
-        const accessToken = CreatedJWT(jsonData,keyAccessToken)
-        return  res.status(HttpStatus.BAD_REQUEST).json({
-            statusCodes:HttpStatus.BAD_REQUEST,
-            where:'/utils/CreatedRefreshIfJWT',
-            accessToken:accessToken
-                });
-            
+            return res.status(HttpStatus.BAD_REQUEST).json({
+                statusCodes: HttpStatus.BAD_REQUEST,
+                where: '/utils/CreatedRefreshIfJWT',
+                message: err
+            });
+        }
+        const accessToken = CreatedJWT(jsonData, keyAccessToken)
+        return res.status(HttpStatus.BAD_REQUEST).json({
+            statusCodes: HttpStatus.BAD_REQUEST,
+            where: '/utils/CreatedRefreshIfJWT',
+            accessToken: accessToken
         });
+
+    });
 }
-function checkRefreshToken(RefreshToken,keyRefreshToken){
+function checkRefreshToken(RefreshToken, keyRefreshToken) {
     return jwt.verify(RefreshToken, keyRefreshToken)
 }
-function checkAccessesToken(AccessToken,keyReToken){
+function checkAccessesToken(AccessToken, keyReToken) {
     return jwt.verify(AccessToken, keyReToken)
 }
-function CheckIsEmpty(check,Statuscode,locationProblem,modify){
-    if(!check){
+function CheckIsEmpty(check, Statuscode, locationProblem, modify) {
+    if (!check) {
         return res.status(Statuscode).json({
             statusCodes: Statuscode,
             where: locationProblem,
             Modified: modify,
-            Error:"is Empty "
+            Error: "is Empty "
         });
     }
     return true
 }
-function theFormOfAnswer(result,Statuscode,locationProblem,modify){
-        return res.status(Statuscode).json({
-            statusCodes: Statuscode,
-            where: locationProblem,
-            Modified: modify,
-            result
-        });
-    
+function theFormOfAnswer(result, Statuscode, locationProblem, modify) {
+    return res.status(Statuscode).json({
+        statusCodes: Statuscode,
+        where: locationProblem,
+        Modified: modify,
+        result
+    });
+
 }
-function ErrorJsonForm(Error,Statuscode,locationProblem,modify){
+function ErrorJsonForm(Error, Statuscode, locationProblem, modify) {
     return res.status(Statuscode).json({
         statusCodes: Statuscode,
         where: locationProblem,
@@ -90,20 +92,26 @@ function ErrorJsonForm(Error,Statuscode,locationProblem,modify){
     });
 
 }
-function checkIsNumber(value){
-    if(typeof value === 'number') return true ;
-    return false 
+function checkIsNumber(value) {
+    if (typeof value === 'number') return true;
+    return false
 }
-function isValidObjectId(id){
-     
-    if(ObjectId.isValid(id)){
-        if((String)(new ObjectId(id)) === id)
-            return true;       
+function isValidObjectId(id) {
+
+    if (ObjectId.isValid(id)) {
+        if ((String)(new ObjectId(id)) === id)
+            return true;
         return false;
     }
     return false;
 }
-module.exports={
+async function checkExistProduct(id, model) {
+    const answer = await model.findOne(id)
+    if (answer) return true
+    return false
+}
+
+module.exports = {
     CheckExistUser,
     newHashPass,
     compareHashPass,
@@ -117,6 +125,7 @@ module.exports={
     theFormOfAnswer,
     isValidObjectId,
     checkIsNumber,
-    ErrorJsonForm
+    ErrorJsonForm,
+    checkExistProduct
 
 }
