@@ -3,9 +3,10 @@ const { validatorProducts } = require("../../validators/products.Validator");
 const Controller = require("../base.Controller");
 const {StatusCodes: HttpStatus} = require("http-status-codes");
 const { ProductModel } = require("../../models/products.model");
-const { theFormOfAnswer } = require("../../utils/utils");
+const { theFormOfAnswer, ErrorJsonForm } = require("../../utils/utils");
 const { BrandsModel } = require("../../models/brands.model");
 const { CategoryModel } = require("../../models/category.model");
+const { default: mongoose } = require("mongoose");
 
 class AdminController extends Controller{
     /* ***********************************               products Area                           **************************** */ 
@@ -61,11 +62,22 @@ class AdminController extends Controller{
             next(error)
         }
     }
-    async post_removeProduct(req,res,next){
+    async Delete_removeProduct(req,res,next){
         try {
-            
+
+            let location='/AdminControllerClass/Delete_removeProduct';
+            const {id}=req.body;
+            if (!typeof id ===mongoose.Types.ObjectId){
+                ErrorJsonForm("id is not typeof objectid ",HttpStatus.BAD_REQUEST)
+            }
+
+            /* send otp code on the phone for access remove items on the list   */ 
+
+            const resultsForDeleteProduct=await ProductModel.findByIdAndDelete(id);
+
+            theFormOfAnswer(resultsForDeleteProduct,HttpStatus.OK,location,true);
         } catch (error) {
-            ErrorJsonForm(error,HttpStatus.INTERNAL_SERVER_ERROR,'/UserControllerClass/getListBrandsWithProduct',false);
+            ErrorJsonForm(error,HttpStatus.INTERNAL_SERVER_ERROR,location,false);
 
             next(error)
         }
@@ -156,9 +168,20 @@ class AdminController extends Controller{
     }
     async Delete_removeBrands(req,res,next){
         try {
-            
+
+            let location='/AdminControllerClass/Delete_removeBrands';
+            const {id}=req.body;
+            if (!typeof id ===mongoose.Types.ObjectId){
+                ErrorJsonForm("id is not typeof objectid ",HttpStatus.BAD_REQUEST)
+            }
+
+            /* send otp code on the phone for access remove items on the list   */ 
+
+            const resultsForDeleteProduct=await BrandsModel.findByIdAndDelete(id);
+
+            theFormOfAnswer(resultsForDeleteProduct,HttpStatus.OK,location,true);
         } catch (error) {
-            ErrorJsonForm(error,HttpStatus.INTERNAL_SERVER_ERROR,'/UserControllerClass/getListBrandsWithProduct',false);
+            ErrorJsonForm(error,HttpStatus.INTERNAL_SERVER_ERROR,location,false);
 
             next(error)
         }
@@ -249,9 +272,20 @@ class AdminController extends Controller{
     }
     async Delete_removeCategory(req,res,next){
         try {
-            
+
+            let location='/AdminControllerClass/Delete_removeCategory';
+            const {id}=req.body;
+            if (!typeof id ===mongoose.Types.ObjectId){
+                ErrorJsonForm("id is not typeof objectid ",HttpStatus.BAD_REQUEST)
+            }
+
+            /* send otp code on the phone for access remove items on the list   */ 
+
+            const resultsForDeleteProduct=await CategoryModel.findByIdAndDelete(id);
+
+            theFormOfAnswer(resultsForDeleteProduct,HttpStatus.OK,location,true);
         } catch (error) {
-            ErrorJsonForm(error,HttpStatus.INTERNAL_SERVER_ERROR,'/UserControllerClass/getListBrandsWithProduct',false);
+            ErrorJsonForm(error,HttpStatus.INTERNAL_SERVER_ERROR,location,false);
 
             next(error)
         }
