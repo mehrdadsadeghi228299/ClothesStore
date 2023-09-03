@@ -11,7 +11,7 @@ class ProductController extends Controller {
 
     async getListProduct(req, res, next) {
         try {
-            const CatchAllOfProduct = await ProductModel.find();
+            const CatchAllOfProduct = await ProductModel.find({showing:true});
              
             CheckIsEmpty(CatchAllOfProduct,HttpStatus.NOT_IMPLEMENTED,'/ProductControllerClass/getListProduct',false);
 
@@ -72,7 +72,7 @@ class ProductController extends Controller {
 
     async getListCategory(req, res, next) {
         try {
-            const findProduct = await CategoryModel.find();
+            const findProduct = await CategoryModel.find({enableSailing:true});
 
 
             CheckIsEmpty(findProduct,HttpStatus.NOT_IMPLEMENTED,'/ProductControllerClass/getListCategory',false);
@@ -125,7 +125,7 @@ class ProductController extends Controller {
     async getListBrands(req, res, next) {
         try {
 
-            const findBrands = await BrandsModel.find();
+            const findBrands = await BrandsModel.find({enableSailing:true});
 
             CheckIsEmpty(findBrands,HttpStatus.NOT_IMPLEMENTED,'/ProductControllerClass/getListCategory',false);
 
