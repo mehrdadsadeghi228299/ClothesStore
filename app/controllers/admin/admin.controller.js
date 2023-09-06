@@ -33,16 +33,7 @@ class AdminController extends Controller {
         }
     }
 
-    async post_updateProduct(req, res, next) {
-        try {
-
-        } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, '/UserControllerClass/getListBrandsWithProduct', false);
-
-            next(error)
-        }
-    }
-    async post_enableProduct(req, res, next) {
+    async put_enableProduct(req, res, next) {
         try {
             let location = '/AdminControllerClass/post_enableProduct';
 
@@ -82,7 +73,7 @@ class AdminController extends Controller {
             next(error)
         }
     }
-    async post_chooseForBestProduct(req, res, next) {
+    async put_chooseForBestProduct(req, res, next) {
         try {
 
         } catch (error) {
@@ -186,7 +177,7 @@ class AdminController extends Controller {
             next(error)
         }
     }
-    async post_chooseForBestBrands(req, res, next) {
+    async put_chooseForBestBrands(req, res, next) {
         try {
 
         } catch (error) {
@@ -289,7 +280,7 @@ class AdminController extends Controller {
             next(error)
         }
     }
-    async post_chooseForBestCategory(req, res, next) {
+    async put_chooseForBestCategory(req, res, next) {
         try {
 
         } catch (error) {
@@ -299,3 +290,9 @@ class AdminController extends Controller {
         }
     }
 } 
+
+
+
+module.exports={
+    AdminController:new AdminController
+}

@@ -9,5 +9,5 @@ router.post('/modifyaccount',UserControllerAuth.checkIsModifyAndSendCodeAccount)
 router.post('/getmodifyaccount',UserControllerAuth.checkIsModifyAndGetCodeAccount);
 
 module.exports={
-        UserRouter:router
+        UserAuthRouter:router
 }

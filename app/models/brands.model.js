@@ -13,7 +13,7 @@ const BrandsSchema = new mongoose.Schema({
   date: { type: Date, require: true },
   Author: {
     name: String,
-    age: Int16Array,
+    age: Number,
   },
   ListProduct: { type: [mongoose.Types.ObjectId], ref: 'ProductModel', autopopulate: true },
   enableSailing: { type: Boolean, default: false }

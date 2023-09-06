@@ -65,31 +65,31 @@ function checkAccessesToken(AccessToken, keyReToken) {
 }
 function CheckIsEmpty(check, Statuscode, locationProblem, modify) {
     if (!check) {
-        return res.status(Statuscode).json({
+        return  {
             statusCodes: Statuscode,
             where: locationProblem,
             Modified: modify,
             Error: "is Empty "
-        });
+        }
     }
     return true
 }
 function theFormOfAnswer(result, Statuscode, locationProblem, modify) {
-    return res.status(Statuscode).json({
+    return {
         statusCodes: Statuscode,
         where: locationProblem,
         Modified: modify,
         result
-    });
+    }
 
 }
 function ErrorJsonForm(Error, Statuscode, locationProblem, modify) {
-    return res.status(Statuscode).json({
+    return {
         statusCodes: Statuscode,
         where: locationProblem,
         Modified: modify,
         Error
-    });
+    }
 
 }
 function checkIsNumber(value) {

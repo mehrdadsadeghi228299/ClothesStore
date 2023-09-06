@@ -11,12 +11,29 @@ class ProductController extends Controller {
 
     async getListProduct(req, res, next) {
         try {
+            let location='/ProductControllerClass/getListProduct'
             const CatchAllOfProduct = await ProductModel.find({ showing: true });
 
-            CheckIsEmpty(CatchAllOfProduct, HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/getListProduct', false);
-
-            theFormOfAnswer(CatchAllOfProduct, HttpStatus.OK, '/ProductControllerClass/getListProduct', false);
-
+            let check =CheckIsEmpty(CatchAllOfProduct, HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/getListProduct', false)
+            if( typeof check == Object){
+                res.json(check);
+            }
+            if (CatchAllOfProduct.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: '/ProductControllerClass/getListProduct',
+                    Modified: false,
+                    CatchAllOfProduct
+                }
+            )
 
         } catch (error) {
             ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, '/UserControllerClass/getListBrandsWithProduct', false);
@@ -173,4 +190,9 @@ class ProductController extends Controller {
     }
 
 
+}
+
+
+module.exports={
+    ProductController:new ProductController
 }

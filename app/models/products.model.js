@@ -30,7 +30,7 @@ const ProductSchema=new mongoose.Schema({
         userId:{type:mongoose.Types.ObjectId,ref:'UserModel',required:true},
         userName:{type:String},
         title:String,
-        star:{type:number ,minlength:0,maxlength:5},
+        star:{type:Number ,minlength:0,maxlength:5},
         text:String 
     }]  ,
     features : {type: Object, default : {

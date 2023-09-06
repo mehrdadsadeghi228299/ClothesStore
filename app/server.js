@@ -1,11 +1,12 @@
 const express=require('express');
-const morgan=require('morgan');
 const http=require('http');
 const AllRouters=require('./routers/routers');
 const cors=require('cors');
 const path=require('path');
 const mongoose=require('mongoose');
-
+const morgan = require("morgan");
+const swaggerUI = require("swagger-ui-express");
+const swaggerJsDoc = require("swagger-jsdoc");
 
 module.exports=class Application{
     #app=express();
@@ -28,6 +29,48 @@ module.exports=class Application{
         this.#app.use(express.json());
         this.#app.use(express.urlencoded({ extended: true }));
         this.#app.use(express.static(path.join(__dirname, "..", "public")));
+        this.#app.use(
+            "/api-doc",
+            swaggerUI.serve,
+            swaggerUI.setup(
+              swaggerJsDoc({
+                swaggerDefinition: {
+                  openapi: "3.0.0",
+                  info: {
+                    title: " Store",
+                    version: "2.0.0",
+                    description:"shop mehrdad",
+                    contact: {
+                      name: "mehrdad ",
+                      url: "https://freerealapi.com",
+                      email: "erfanyousefi.co@gmail.com",
+                    },
+                  },
+                  servers: [
+                    {
+                      url: "http://localhost:3000",
+                    },
+                    {
+                      url: "http://localhost:5000",
+                    },
+                  ],
+                  components : {
+                    securitySchemes : {
+                      BearerAuth : {
+                        type: "http",
+                        scheme: "bearer",
+                        bearerFormat: "JWT",
+                        
+                      }
+                    }
+                  },
+                  security : [{BearerAuth : [] }]
+                },
+                apis: ["./app/routers/**/*.js"],
+              }),
+              {explorer: true},
+            )
+          );
     }
     createdServer(){
         const server=http.createServer(this.#app);
