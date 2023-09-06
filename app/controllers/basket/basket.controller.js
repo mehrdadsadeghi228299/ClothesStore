@@ -1,8 +1,8 @@
 const { default: mongoose } = require("mongoose");
 const { UserModel } = require("../../models/user.model");
-const { theFormOfAnswer } = require("../../utils/utils");
-const Controller = require("../base.Controller");
+const { theFormOfAnswer, CheckExistUser } = require("../../utils/utils");
 const { StatusCodes: HttpStatus } = require("http-status-codes");
+const { Controller } = require("../base.Controller");
 
 
 class BasketProductShop extends Controller {
@@ -57,10 +57,12 @@ class BasketProductShop extends Controller {
             let location = 'BasketProductShop/Delete_ItemIntoBasket'
 
             const id_user = req.user._id ;
-            const { productId, countItems } = req.body ;
+            const { productId,  } = req.body ;
+            CheckExistUser(id_user);
 
-            const resultAddingItemsInBasket = await UserModel.findByIdAndUpdate(id_user, {
-                '$push': { 'basket.$productId': productId, "basket.countItems": countItems }
+            const resultAddingItemsInBasket = await UserModel.findOneAndRemove({
+                '_id':id_user,
+                'basket.productId':productId
 
             });
 

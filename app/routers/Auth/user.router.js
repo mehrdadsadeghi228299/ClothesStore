@@ -1,6 +1,5 @@
-const userControllers = require('../controllers/user.controllers');
-const {UserControllerAuth} = require('../controllers/user.controllers');
-const { validatorUser } = require('../validators/user.vaildate');
+const { UserControllerAuth } = require('../../controllers/user/user.controllers');
+const { validatorUser } = require('../../validators/user.vaildate');
 const router=require('express').Router();
 
 

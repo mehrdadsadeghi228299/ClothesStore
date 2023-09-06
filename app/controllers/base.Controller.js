@@ -6,3 +6,4 @@ module.exports = class Controller{
         return "Test String"
     }
 }
+ 

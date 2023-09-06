@@ -1,14 +1,14 @@
 require('dotenv').config();
 
-const Controller = require("./base.Controller");
 const {StatusCodes: HttpStatus} = require("http-status-codes");
 const bcrypt=require('bcrypt');
-const { CheckExistUser, newHashPass, codeERSali, CreatedJWT, CreatedRefreshJWT, CreatedRefreshIfJWT, checkRefreshToken, checkAccessesToken } = require("../utils/utils");
-const { UserModel } = require("../models/user.model");
+const { CheckExistUser, newHashPass, codeERSali, CreatedJWT, CreatedRefreshJWT, CreatedRefreshIfJWT, checkRefreshToken, checkAccessesToken } = require("../../utils/utils");
+
 const {validationResult}=require('express-validator')
 const  empty = require('is-empty');
-const userModel = require("../models/user.model");
 const JWT=require('jsonwebtoken');
+const Controller = require('../base.Controller');
+const { UserModel } = require('../../models/user.model');
 const KEYTOKEN="6d65687264616473616465676869";
 const KEYREFRESH="6865646e686d6a672c6a632c63686b2c6b6a2c6b6b2c686b2e";
 
