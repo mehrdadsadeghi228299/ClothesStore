@@ -14,10 +14,7 @@ class ProductController extends Controller {
             let location='/ProductControllerClass/getListProduct'
             const CatchAllOfProduct = await ProductModel.find({ showing: true });
 
-            let check =CheckIsEmpty(CatchAllOfProduct, HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/getListProduct', false)
-            if( typeof check == Object){
-                res.json(check);
-            }
+        
             if (CatchAllOfProduct.length <1 ) {
                 return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
                     statusCodes: HttpStatus.NOT_IMPLEMENTED,
@@ -29,39 +26,65 @@ class ProductController extends Controller {
            return res.status(HttpStatus.OK).json(
                  {
                     statusCodes: HttpStatus.OK,
-                    where: '/ProductControllerClass/getListProduct',
+                    where: location,
                     Modified: false,
                     CatchAllOfProduct
                 }
             )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, '/UserControllerClass/getListBrandsWithProduct', false);
-
-            next(error);
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
 
     async findProductById(req, res, next) {
         try {
+            let location='/ProductControllerClass/findProductById'
+
             const { id } = req.body
-            CheckIsEmpty(id, HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/getListProduct', false);
+            //CheckIsEmpty(id, HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/getListProduct', false);
 
-            const findProduct = await ProductModel.find();
+            const findProduct = await ProductModel.findById(id);
 
-            CheckIsEmpty(findProduct, HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/getListProduct', false);
-
-            theFormOfAnswer(findProduct, HttpStatus.OK, '/ProductControllerClass/getListProduct', false);
-
+           
+            if (findProduct.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    findProduct
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, '/UserControllerClass/getListBrandsWithProduct', false);
-
-            next(error);
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
+    
     }
 
     async findProductByProductCode(req, res, next) {
+        let location='/ProductControllerClass/findProductByProductCode'
+
         try {
             const { code } = req.body
             const check = checkIsNumber(code)
@@ -69,71 +92,145 @@ class ProductController extends Controller {
                 ErrorJsonForm("ProductCode value is not number ", HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/findProductByProductCode', false);
             }
 
-            CheckIsEmpty(code, HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/findProductByProductCode', false);
+           // CheckIsEmpty(code, HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/findProductByProductCode', false);
 
             const findProduct = await ProductModel.findOne({ productCode: code });
 
-            CheckIsEmpty(findProduct, HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/findProductByProductCode', false);
-
-            theFormOfAnswer(findProduct, HttpStatus.OK, '/ProductControllerClass/findProductByProductCode', false);
-
+           
+           
+            if (findProduct.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    findProduct
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, '/UserControllerClass/getListBrandsWithProduct', false);
-
-            next(error);
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
+    
     }
 
     /* ***********************************             Category   Area                           **************************** */
 
     async getListCategory(req, res, next) {
         try {
+            let location='/ProductControllerClass/getListCategory'
+
             const findProduct = await CategoryModel.find({ enableSailing: true });
-
-
-            CheckIsEmpty(findProduct, HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/getListCategory', false);
-
-            theFormOfAnswer(findProduct, HttpStatus.OK, '/ProductControllerClass/getListCategory', false);
+           
+            if (findProduct.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    findProduct
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, '/UserControllerClass/getListBrandsWithProduct', false);
-
-            next(error);
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
+    
     }
 
     async getListCategoryWithProduct(req, res, next) {
         try {
 
+            let location='/ProductControllerClass/getListCategoryWithProduct'
 
             const findProduct = await CategoryModel.find().populate('ListProduct');
-
-            CheckIsEmpty(findProduct, HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/getListCategory', false);
-
-            theFormOfAnswer(findProduct, HttpStatus.OK, '/ProductControllerClass/getListCategory', false);
+            if (findProduct.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    findProduct
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, '/UserControllerClass/getListBrandsWithProduct', false);
-
-            next(error);
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
 
     async getListCategoryWithSpecialChildren(req, res, next) {
         try {
+            let location='/ProductControllerClass/getListCategoryWithSpecialChildren'
+
             const { titleCategory } = req.body;
 
             const findCategory = await BrandsModel.find({ Name: titleCategory }).populate('ListProduct');
 
-            CheckIsEmpty(findCategory, HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/getListCategory', false);
-
-            theFormOfAnswer(findCategory, HttpStatus.OK, '/ProductControllerClass/getListCategory', false);
+            if (findCategory.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    findCategory
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, '/UserControllerClass/getListBrandsWithProduct', false);
-
-            next(error);
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
 
@@ -141,51 +238,107 @@ class ProductController extends Controller {
 
     async getListBrands(req, res, next) {
         try {
+            let location='/ProductControllerClass/getListBrands'
 
             const findBrands = await BrandsModel.find({ enableSailing: true });
 
-            CheckIsEmpty(findBrands, HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/getListCategory', false);
-
-            theFormOfAnswer(findBrands, HttpStatus.OK, '/ProductControllerClass/getListCategory', false);
+            if (findBrands.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    findBrands
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, '/UserControllerClass/getListBrandsWithProduct', false);
-
-            next(error);
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
 
     async getListBrandsWithProduct(req, res, next) {
         try {
-
+            let location='/ProductControllerClass/getListBrands'
             const findBrands = await BrandsModel.find().populate('ListProduct');
 
-            CheckIsEmpty(findBrands, HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/getListCategory', false);
-
-            theFormOfAnswer(findBrands, HttpStatus.OK, '/ProductControllerClass/getListCategory', false);
+       
+            if (findBrands.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    findBrands
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, '/UserControllerClass/getListBrandsWithProduct', false);
-
-            next(error);
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
 
     async getListBrandsWithSpecialChildren(req, res, next) {
         try {
+            let location='/ProductControllerClass/getListBrands'
+
 
             const { nameBrands } = req.body;
 
             const findBrands = await BrandsModel.find({ Name: nameBrands }).populate('ListProduct');
 
-            CheckIsEmpty(findBrands, HttpStatus.NOT_IMPLEMENTED, '/ProductControllerClass/getListCategory', false);
-
-            theFormOfAnswer(findBrands, HttpStatus.OK, '/ProductControllerClass/getListCategory', false);
+        
+            if (findBrands.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    findBrands
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, '/UserControllerClass/getListBrandsWithProduct', false);
-
-            next(error);
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
 

@@ -40,22 +40,8 @@
  *                       titleCategory:
  *                          type: string
  *                          description: titleCategory for searching in Category 
- *              findProductByProductCode:
- *                  type: object
- *                  required:
- *                      -   code
- *                  properties:
- *                       code:
- *                          type: string
- *                          description: code for searching in products 
- *              getListBrands:
- *                  type: object
- *                  required:
- *                      -   code
- *                  properties:
- *                       code:
- *                          type: string
- *                          description: code for searching in products 
+ *              
+ 
  *              getListBrands:
  *                  type: object
  *              getListBrandsWithProduct:
@@ -84,9 +70,9 @@
  *      get:
  *          tags: [Shop-Section Products]
  *          summary: get All products
- *          description:receive  All products
+ *          description: receive  All products
  *          requestBody:
- *              required: true
+ *              required: false
  *              content: 
  *                  application/x-www-form-urlencoded:
  *                      schema:
@@ -105,32 +91,7 @@
  *                  description: Internal Server Error 
  */
 
-/** 
-* @swagger
-*  /getListProduct:
-*      get:
-*          tags: [ Shop-Section Products]
-*          summary: get All products
-*          description:receive  All products
-*          requestBody:
-*              required: true
-*              content: 
-*                  application/x-www-form-urlencoded:
-*                      schema:
-*                          $ref: '#/components/schemas/getListProduct'
-*                  application/json:
-*                      schema:
-*                          $ref: '#/components/schemas/getListProduct'
-*          responses:
-*              201: 
-*                  description: Success
-*              400: 
-*                  description: Bad Request
-*              401: 
-*                  description: Unauthorization
-*              500: 
-*                  description: Internal Server Error 
-*/
+
 /**
  * @swagger
  *  /findProductById/:

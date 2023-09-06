@@ -13,8 +13,9 @@ router.post('/findProductByProductCode/:code',ProductController.findProductByPro
 router.get('/getListCategory',ProductController.getListCategory);
 router.post('/getListCategoryWithProduct',ProductController.getListCategoryWithProduct);
 router.post('/getListCategoryWithSpecialChildren/:titleCategory',ProductController.getListCategoryWithSpecialChildren);
+
 /* ***********************************               Category Area                           **************************** */
-    
+     
 
 router.get('/getListBrands',ProductController.getListBrands);
 router.post('/getListBrandsWithProduct',ProductController.getListBrandsWithProduct);
