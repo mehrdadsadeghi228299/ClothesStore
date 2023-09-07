@@ -2,10 +2,7 @@
 /**
  * @swagger
  *  components:
- *      schemas :
- *            Shop :
- *              type: object
- *             
+ *      ShopSchemas :
  *              getListProduct :
  *                  type: object
  *              
@@ -77,10 +74,10 @@
  *              content: 
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/schemas/getListProduct'
+ *                          $ref: '#/components/ShopSchemas/getListProduct'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/getListProduct'
+ *                          $ref: '#/components/ShopSchemas/getListProduct'
  *          responses:
  *              201: 
  *                  description: Success
@@ -105,10 +102,10 @@
  *              content:
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/schemas/findProductById'
+ *                          $ref: '#/components/ShopSchemas/findProductById'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/findProductById'
+ *                          $ref: '#/components/ShopSchemas/findProductById'
  *          responses:
  *              201: 
  *                  description: Success
@@ -131,10 +128,10 @@
  *              content:
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/schemas/findProductByProductCode'
+ *                          $ref: '#/components/ShopSchemas/findProductByProductCode'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/findProductByProductCode'
+ *                          $ref: '#/components/ShopSchemas/findProductByProductCode'
  *          responses:
  *              201: 
  *                  description: Success
@@ -159,10 +156,10 @@
  *              content: 
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/schemas/getListCategory'
+ *                          $ref: '#/components/ShopSchemas/getListCategory'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/getListCategory'
+ *                          $ref: '#/components/ShopSchemas/getListCategory'
  *          responses:
  *              201: 
  *                  description: Success
@@ -187,10 +184,10 @@
  *              content:
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/schemas/getListCategoryWithProduct'
+ *                          $ref: '#/components/ShopSchemas/getListCategoryWithProduct'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/getListCategoryWithProduct'
+ *                          $ref: '#/components/ShopSchemas/getListCategoryWithProduct'
  *          responses:
  *              201: 
  *                  description: Success
@@ -214,10 +211,10 @@
  *              content:
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/schemas/getListCategoryWithSpecialChildren'
+ *                          $ref: '#/components/ShopSchemas/getListCategoryWithSpecialChildren'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/getListCategoryWithSpecialChildren'
+ *                          $ref: '#/components/ShopSchemas/getListCategoryWithSpecialChildren'
  *          responses:
  *              201: 
  *                  description: Success
@@ -241,10 +238,10 @@
  *              content: 
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/schemas/getListBrands'
+ *                          $ref: '#/components/ShopSchemas/getListBrands'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/getListBrands'
+ *                          $ref: '#/components/ShopSchemas/getListBrands'
  *          responses:
  *              201: 
  *                  description: Success
@@ -270,10 +267,10 @@
  *              content:
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/schemas/getListBrandsWithProduct'
+ *                          $ref: '#/components/ShopSchemas/getListBrandsWithProduct'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/getListBrandsWithProduct'
+ *                          $ref: '#/components/ShopSchemas/getListBrandsWithProduct'
  *          responses:
  *              201: 
  *                  description: Success
@@ -297,10 +294,10 @@
  *              content:
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/schemas/getListBrandsWithSpecialChildren'
+ *                          $ref: '#/components/ShopSchemas/getListBrandsWithSpecialChildren'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/getListBrandsWithSpecialChildren'
+ *                          $ref: '#/components/ShopSchemas/getListBrandsWithSpecialChildren'
  *          responses:
  *              201: 
  *                  description: Success
