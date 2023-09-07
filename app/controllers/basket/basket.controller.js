@@ -13,11 +13,32 @@ class BasketProductShop extends Controller {
 
             const id_user = req.user._id;
             const resultGettingItemsInBasket = await UserModel.findById(id_user);
-            theFormOfAnswer(resultGettingItemsInBasket.basket, HttpStatus.ACCEPTED, location, false)
+         
+            if (resultGettingItemsInBasket.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    resultGettingItemsInBasket
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, location, false);
-            next(error)
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
 
@@ -33,23 +54,47 @@ class BasketProductShop extends Controller {
                     '$set': {"basket.countItems": num+1 }
     
                 });
-                theFormOfAnswer(resultAddingItemsInBasket.basket, HttpStatus.ACCEPTED, location, false)
-    
+                return res.status(HttpStatus.ACCEPTED).json ({
+                    statusCodes: HttpStatus.ACCEPTED,
+                    where: location,
+                    Modified: false,
+                    result:resultAddingItemsInBasket.basket
+
+                });
             }else{
                 const resultAddingItemsInBasket = await UserModel.findByIdAndUpdate(id_user, {
                     '$push': { 'basket.$productId': productId, "basket.countItems": countItems }
     
                 });
-                theFormOfAnswer(resultAddingItemsInBasket.basket, HttpStatus.ACCEPTED, location, false)
-    
-            }
-          
-        } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, location, false);
+         
+                if (resultAddingItemsInBasket.length <1 ) {
+                    return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                        statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                        where: location,
+                        Modified: false,
+                        Error: "is Empty "
+                    });
+                }
+               return res.status(HttpStatus.OK).json(
+                     {
+                        statusCodes: HttpStatus.OK,
+                        where: location,
+                        Modified: false,
+                        resultAddingItemsInBasket
+                    }
+                )
+                }
+            } catch (error) {
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                    statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                    where: location,
+                    Modified: false,
+                    Error: error
+                });
             next(error);
-        }
+            }
 
-
+        
 
     }
     async Delete_ItemIntoBasket(req, res, next) {
@@ -66,12 +111,33 @@ class BasketProductShop extends Controller {
 
             });
 
-            theFormOfAnswer(resultAddingItemsInBasket.basket, HttpStatus.ACCEPTED, location, false)
+         
+            if (resultAddingItemsInBasket.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    resultAddingItemsInBasket
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, location, false);
-            next(error);
-        } 
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
+        }
       
     }
 

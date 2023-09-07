@@ -17,19 +17,42 @@ class AdminController extends Controller {
 
             const errorValidator = validationResult(req);
             if (!errorValidator) {
-                ErrorJsonForm(errorValidator, HttpStatus.NOT_ACCEPTABLE, location, false);
-            }
+                res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                    statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                    where: location,
+                    Modified: false,
+                    Error: errorValidator
+                });          
+              }
 
             const { Name, title, brand_id, tags, categoryFatherId, images, shortDescription, Description, productCode, size, color, price, count, numberOfSail, isModify, isAvailable, showing, pageView, features } = req.body
 
             const resultCreatedProduct = await ProductModel.create(Name, title, brand_id, categoryFatherId, tags, images, shortDescription, Description, productCode, size, color, price, count, numberOfSail, isModify, isAvailable, showing, pageView, features);
-
-            CheckIsEmpty(resultCreatedProduct, HttpStatus.NOT_IMPLEMENTED, location, false);
-            theFormOfAnswer(resultCreatedProduct, HttpStatus.CREATED, location, false);
+            if (resultCreatedProduct.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    resultCreatedProduct
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, location, false);
-            next(error)
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
 
@@ -44,13 +67,31 @@ class AdminController extends Controller {
             }
             const resultUpdateEnableSailingProduct = await ProductModel.findByIdAndUpdate({ _id: id }, { isAvailable: isAvailable })
 
-            CheckIsEmpty(resultUpdateEnableSailingProduct, HttpStatus.NOT_IMPLEMENTED, location, false);
-            theFormOfAnswer(resultUpdateEnableSailingProduct, HttpStatus.ACCEPTED, location, false);
+            if (resultUpdateEnableSailingProduct.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    resultUpdateEnableSailingProduct
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, location, false);
-
-            next(error)
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
     async Delete_removeProduct(req, res, next) {
@@ -66,11 +107,32 @@ class AdminController extends Controller {
 
             const resultsForDeleteProduct = await ProductModel.findByIdAndDelete(id);
 
-            theFormOfAnswer(resultsForDeleteProduct, HttpStatus.OK, location, true);
-        } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, location, false);
+      
+            if (resultsForDeleteProduct.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    resultsForDeleteProduct
+                }
+            )
 
-            next(error)
+        } catch (error) {
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
     async put_chooseForBestProduct(req, res, next) {
@@ -95,15 +157,44 @@ class AdminController extends Controller {
             const { Name, date, Author } = req.body
 
             const resultCreatedBrands = await BrandsModel.create(Name, date, Author)
-
-            CheckIsEmpty(resultCreatedBrands, HttpStatus.NOT_IMPLEMENTED, location, false);
-            theFormOfAnswer(resultCreatedBrands, HttpStatus.CREATED, location, false);
+            
+      
+            if (resultCreatedBrands.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    resultCreatedBrands
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, location, false);
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
+        }
+    }
+    async put_chooseForBestProduct(req, res, next) {
+        try {
+
+        } catch (error) {
+            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, '/UserControllerClass/getListBrandsWithProduct', false);
 
             next(error)
         }
+
     }
 
     async put_updateListProductIntoBrands(req, res, next) {
@@ -127,13 +218,31 @@ class AdminController extends Controller {
                 }
             });
 
-            CheckIsEmpty(resultUpdateListProductBrands, HttpStatus.NOT_IMPLEMENTED, location, false);
-            theFormOfAnswer(resultUpdateListProductBrands, HttpStatus.ACCEPTED, location, false);
+            if (resultUpdateListProductBrands.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    resultUpdateListProductBrands
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, location, false);
-
-            next(error)
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
     async put_enableBrands(req, res, next) {
@@ -147,13 +256,31 @@ class AdminController extends Controller {
             }
             const resultUpdateEnableSailingBrands = await BrandsModel.findByIdAndUpdate({ _id: id }, { enableSailing: enableSailing })
 
-            CheckIsEmpty(resultUpdateEnableSailingBrands, HttpStatus.NOT_IMPLEMENTED, location, false);
-            theFormOfAnswer(resultUpdateEnableSailingBrands, HttpStatus.ACCEPTED, location, false);
+            if (resultUpdateEnableSailingBrands.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    resultUpdateEnableSailingBrands
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, location, false);
-
-            next(error)
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
 
     }
@@ -170,11 +297,31 @@ class AdminController extends Controller {
 
             const resultsForDeleteProduct = await BrandsModel.findByIdAndDelete(id);
 
-            theFormOfAnswer(resultsForDeleteProduct, HttpStatus.OK, location, true);
-        } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, location, false);
+            if (resultsForDeleteProduct.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    resultsForDeleteProduct
+                }
+            )
 
-            next(error)
+        } catch (error) {
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
     async put_chooseForBestBrands(req, res, next) {
@@ -201,13 +348,31 @@ class AdminController extends Controller {
 
             const resultCreateCategory = await CategoryModel.create(title, ListProduct)
 
-            CheckIsEmpty(resultCreateCategory, HttpStatus.NOT_IMPLEMENTED, location, false);
-            theFormOfAnswer(resultCreateCategory, HttpStatus.CREATED, location, false);
+            if (resultCreateCategory.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    resultCreateCategory
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, location, false);
-
-            next(error)
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
     async put_updateListProductsIntoCategory(req, res, next) {
@@ -230,14 +395,31 @@ class AdminController extends Controller {
                     'ListProduct': ListProduct
                 }
             })
-
-            CheckIsEmpty(resultUpdateListProductCategory, HttpStatus.NOT_IMPLEMENTED, location, false);
-            theFormOfAnswer(resultUpdateListProductCategory, HttpStatus.ACCEPTED, location, false);
-
+            if (resultUpdateListProductCategory.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    resultUpdateListProductCategory
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, location, false);
-            next(error)
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
     async put_enableCategory(req, res, next) {
@@ -250,14 +432,32 @@ class AdminController extends Controller {
 
             }
             const resultUpdateEnableSailingCategory = await CategoryModel.findByIdAndUpdate({ _id: id }, { enableSailing: enableSailing })
-
-            CheckIsEmpty(resultUpdateEnableSailingCategory, HttpStatus.NOT_IMPLEMENTED, location, false);
-            theFormOfAnswer(resultUpdateEnableSailingCategory, HttpStatus.ACCEPTED, location, false);
+          
+            if (resultUpdateEnableSailingCategory.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    resultUpdateEnableSailingCategory
+                }
+            )
 
         } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, location, false);
-
-            next(error)
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
     async Delete_removeCategory(req, res, next) {
@@ -273,11 +473,31 @@ class AdminController extends Controller {
 
             const resultsForDeleteProduct = await CategoryModel.findByIdAndDelete(id);
 
-            theFormOfAnswer(resultsForDeleteProduct, HttpStatus.OK, location, true);
-        } catch (error) {
-            ErrorJsonForm(error, HttpStatus.INTERNAL_SERVER_ERROR, location, false);
+            if (resultsForDeleteProduct.length <1 ) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+           return res.status(HttpStatus.OK).json(
+                 {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    resultsForDeleteProduct
+                }
+            )
 
-            next(error)
+        } catch (error) {
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
+                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
+                where: location,
+                Modified: false,
+                Error: error
+            });
+        next(error);
         }
     }
     async put_chooseForBestCategory(req, res, next) {
