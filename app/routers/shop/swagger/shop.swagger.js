@@ -2,22 +2,22 @@
 /**
  * @swagger
  *  components:
- *      schemas:
- *            Shop:
+ *      schemas :
+ *            Shop :
  *              type: object
  *             
- *              getListProduct:
+ *              getListProduct :
  *                  type: object
  *              
- *              findProductById:
+ *              findProductById :
  *                  type: object
  *                  required:
  *                      -   id
- *                  properties:
+ *                  properties :
  *                       id:
  *                          type: string
  *                          description: id for searching in products 
- *              findProductByProductCode:
+ *              findProductByProductCode :
  *                  type: object
  *                  required:
  *                      -   code
@@ -41,11 +41,12 @@
  *                          type: string
  *                          description: titleCategory for searching in Category 
  *              
- 
+ *
  *              getListBrands:
  *                  type: object
  *              getListBrandsWithProduct:
  *                  type: object
+ * 
  *              getListBrandsWithSpecialChildren:
  *                  type: object
  *                  required:
@@ -94,7 +95,7 @@
 
 /**
  * @swagger
- *  /findProductById/:
+ *  /findProductById:
  *      post:
  *          tags : [Shop-Section Products]
  *          summary: findProductById
@@ -120,20 +121,20 @@
  */
 /**
  * @swagger
- *  /user/check-otp:
+ *  /findProductByProductCode:
  *      post:
- *          tags : [User-Authentication]
- *          summary: chack-otp value in user controller
- *          description: chack otp with codce- mobile and expires date
+ *          tags : [Shop-Section Products]
+ *          summary: find Products By special code 
+ *          description: find Products By special code 
  *          requestBody:
  *              required: true
  *              content:
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/schemas/CheckOTP'
+ *                          $ref: '#/components/schemas/findProductByProductCode'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/CheckOTP'
+ *                          $ref: '#/components/schemas/findProductByProductCode'
  *          responses:
  *              201: 
  *                  description: Success
@@ -144,23 +145,169 @@
  *              500: 
  *                  description: Internal Server Error 
  */
+
+
 /**
  * @swagger
- *  /user/refresh-token:
+ *  /getListCategory:
+ *      get:
+ *          tags: [Shop-Section Products]
+ *          summary: get All Category
+ *          description: receive  All Category
+ *          requestBody:
+ *              required: false
+ *              content: 
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/schemas/getListCategory'
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/getListCategory'
+ *          responses:
+ *              201: 
+ *                  description: Success
+ *              400: 
+ *                  description: Bad Request
+ *              401: 
+ *                  description: Unauthorization
+ *              500: 
+ *                  description: Internal Server Error 
+ */
+
+
+/**
+ * @swagger
+ *  /getListCategoryWithProduct:
+ *      get:
+ *          tags : [Shop-Section Products]
+ *          summary: get List Category With Product
+ *          description: get List Category With Product
+ *          requestBody:
+ *              required: false
+ *              content:
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/schemas/getListCategoryWithProduct'
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/getListCategoryWithProduct'
+ *          responses:
+ *              201: 
+ *                  description: Success
+ *              400: 
+ *                  description: Bad Request
+ *              401: 
+ *                  description: Unauthorization
+ *              500: 
+ *                  description: Internal Server Error 
+ */
+
+/**
+ * @swagger
+ *  /getListCategoryWithSpecialChildren:
  *      post:
- *          tags: [User-Authentication]
- *          summary: send refresh token ffor get new token and refresh token
- *          description : fresh token
+ *          tags : [Shop-Section Products]
+ *          summary : receive List Category With Special Children  
+ *          description: receive List Category With Special Children
  *          requestBody:
  *              required: true
  *              content:
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/schemas/RefreshToken'
+ *                          $ref: '#/components/schemas/getListCategoryWithSpecialChildren'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/RefreshToken'
+ *                          $ref: '#/components/schemas/getListCategoryWithSpecialChildren'
  *          responses:
- *              200:
- *                  description : success
+ *              201: 
+ *                  description: Success
+ *              400: 
+ *                  description: Bad Request
+ *              401: 
+ *                  description: Unauthorization
+ *              500: 
+ *                  description: Internal Server Error 
+ */
+
+/**
+ * @swagger
+ *  /getListBrands:
+ *      get:
+ *          tags: [Shop-Section Products]
+ *          summary: get List Brands
+ *          description: receive  List Brands
+ *          requestBody:
+ *              required: false
+ *              content: 
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/schemas/getListBrands'
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/getListBrands'
+ *          responses:
+ *              201: 
+ *                  description: Success
+ *              400: 
+ *                  description: Bad Request
+ *              401: 
+ *                  description: Unauthorization
+ *              500: 
+ *                  description: Internal Server Error 
+ * 
+ */
+
+
+/**
+ * @swagger
+ *  /getListBrandsWithProduct:
+ *       get:
+ *          tags : [Shop-Section Products]
+ *          summary : get List Brands With Product
+ *          description: get List Brands  With Product
+ *          requestBody:
+ *              required: false
+ *              content:
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/schemas/getListBrandsWithProduct'
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/getListBrandsWithProduct'
+ *          responses:
+ *              201: 
+ *                  description: Success
+ *              400: 
+ *                  description: Bad Request
+ *              401: 
+ *                  description: Unauthorization
+ *              500: 
+ *                  description: Internal Server Error 
+ */
+
+/**
+ * @swagger
+ *  /getListBrandsWithSpecialChildren:
+ *      post:
+ *          tags : [Shop-Section Products]
+ *          summary : receive List Brands   
+ *          description: receive List Brands With Special Children
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/schemas/getListBrandsWithSpecialChildren'
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/getListBrandsWithSpecialChildren'
+ *          responses:
+ *              201: 
+ *                  description: Success
+ *              400: 
+ *                  description: Bad Request
+ *              401: 
+ *                  description: Unauthorization
+ *              500: 
+ *                  description: Internal Server Error 
  */

@@ -11,14 +11,14 @@ router.post('/findProductByProductCode/:code',ProductController.findProductByPro
 /* ***********************************               Brands Area                           **************************** */
 
 router.get('/getListCategory',ProductController.getListCategory);
-router.post('/getListCategoryWithProduct',ProductController.getListCategoryWithProduct);
+router.get('/getListCategoryWithProduct',ProductController.getListCategoryWithProduct);
 router.post('/getListCategoryWithSpecialChildren/:titleCategory',ProductController.getListCategoryWithSpecialChildren);
 
 /* ***********************************               Category Area                           **************************** */
      
 
 router.get('/getListBrands',ProductController.getListBrands);
-router.post('/getListBrandsWithProduct',ProductController.getListBrandsWithProduct);
+router.get('/getListBrandsWithProduct',ProductController.getListBrandsWithProduct);
 router.post('/getListBrandsWithSpecialChildren/:nameBrands',ProductController.getListBrandsWithSpecialChildren);
 module.exports={
         shopRouter:router
