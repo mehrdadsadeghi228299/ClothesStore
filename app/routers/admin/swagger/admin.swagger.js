@@ -3,7 +3,6 @@
  * @swagger
  *  components:
  *         AdminPanel: 
- * 
  *             post_AddProduct:
  *                  type: object
  *                  required:
@@ -80,9 +79,7 @@
  *                          description: pageView of products 
  *                       features:
  *                          type: object
- *                          description: features of  products 
- *           
- *        
+ *                          description: features of  products         
  *             put_enableProduct:
  *                  type: object
  *                  required :
