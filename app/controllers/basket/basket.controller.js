@@ -1,8 +1,9 @@
-const { default: mongoose } = require("mongoose");
+const { default: mongoose, model } = require("mongoose");
 const { UserModel } = require("../../models/user.model");
 const { theFormOfAnswer, CheckExistUser } = require("../../utils/utils");
 const { StatusCodes: HttpStatus } = require("http-status-codes");
 const { Controller } = require("../base.Controller");
+const { models } = require("mongoose");
 
 
 class BasketProductShop extends Controller {
@@ -103,7 +104,7 @@ class BasketProductShop extends Controller {
             let location = 'BasketProductShop/Delete_ItemIntoBasket'
 
             const id_user = req.user._id ;
-            const { productId,  } = req.body ;
+            const { productId } = req.body ;
             CheckExistUser(id_user);
 
             const resultAddingItemsInBasket = await UserModel.findOneAndRemove({
@@ -162,4 +163,9 @@ class BasketProductShop extends Controller {
 
 
 
+}
+
+
+module.exports={
+    BasketProductShop:new BasketProductShop
 }

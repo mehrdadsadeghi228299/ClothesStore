@@ -2,89 +2,64 @@
 /**
  * @swagger
  *  components:
- *      ShopSchemas :
- *              getListProduct :
+ *      BasketSchemas :
+ *              get_ItemsInBasket :
  *                  type: object
  *              
- *              findProductById :
+ *              post_AddItemIntoBasket :
  *                  type: object
  *                  required:
- *                      -   id
+ *                      -   productId
+ *                      -   countItems
  *                  properties :
- *                       id:
+ *                       productId:
  *                          type: string
- *                          description: id for searching in products 
- *              findProductByProductCode :
+ *                          description: id for searching in products     
+ *                       countItems:
+ *                          type: number
+ *                          description: count items of products in basket
+ *              Delete_ItemIntoBasket :
  *                  type: object
  *                  required:
- *                      -   code
+ *                      -   productId
  *                  properties:
  *                       code:
  *                          type: string
- *                          description: code for searching in products 
+ *                          description: productId for searching in products and Deleted
  *          
- *              getListCategory:
- *                  type: object
- * 
- *              getListCategoryWithProduct:
- *                  type: object
- * 
- *              getListCategoryWithSpecialChildren:
- *                  type: object
- *                  required:
- *                      -   titleCategory
- *                  properties:
- *                       titleCategory:
- *                          type: string
- *                          description: titleCategory for searching in Category 
- *              
- *
- *              getListBrands:
- *                  type: object
- *              getListBrandsWithProduct:
- *                  type: object
- * 
- *              getListBrandsWithSpecialChildren:
- *                  type: object
- *                  required:
- *                      -   nameBrands
- *                  properties:
- *                       nameBrands:
- *                          type: string
- *                          description: name of Brands for searching in Brands 
- *      
+ *         
  */
 
 /**
  * @swagger
  *  tags:
- *      name : Shop-Section Products
- *      description : Shop-Section Products
+ *      name : Basket-Section Products
+ *      description : Basket-Section Products
  */
 
 /**
  * @swagger
- *  /getListProduct:
+ *  /get_ItemsInBasket:
  *      get:
- *          tags: [Shop-Section Products]
- *          summary: get All products
- *          description: receive  All products
+ *          tags: [Basket-Section Products]
+ *          summary: get items in  basket
+ *          description: get items in basket
  *          requestBody:
  *              required: false
  *              content: 
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/ShopSchemas/getListProduct'
+ *                          $ref: '#/components/BasketSchemas/get_ItemsInBasket'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/ShopSchemas/getListProduct'
+ *                          $ref: '#/components/BasketSchemas/get_ItemsInBasket'
  *          responses:
  *              201: 
  *                  description: Success
  *              400: 
  *                  description: Bad Request
  *              401: 
- *                  description: Unauthorization
+ *                  description: Authorization
  *              500: 
  *                  description: Internal Server Error 
  */
@@ -92,219 +67,54 @@
 
 /**
  * @swagger
- *  /findProductById:
- *      post:
- *          tags : [Shop-Section Products]
- *          summary: findProductById
- *          description: findProductById
- *          requestBody:
- *              required: true
- *              content:
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/ShopSchemas/findProductById'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/ShopSchemas/findProductById'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
-/**
- * @swagger
- *  /findProductByProductCode:
- *      post:
- *          tags : [Shop-Section Products]
- *          summary: find Products By special code 
- *          description: find Products By special code 
- *          requestBody:
- *              required: true
- *              content:
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/ShopSchemas/findProductByProductCode'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/ShopSchemas/findProductByProductCode'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
-
-
-/**
- * @swagger
- *  /getListCategory:
+ *  /post_AddItemIntoBasket:
  *      get:
- *          tags: [Shop-Section Products]
- *          summary: get All Category
- *          description: receive  All Category
+ *          tags: [Basket-Section Products]
+ *          summary: Adding  item in  basket
+ *          description: Adding item in basket
  *          requestBody:
- *              required: false
+ *              required: true
  *              content: 
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/ShopSchemas/getListCategory'
+ *                          $ref: '#/components/BasketSchemas/post_AddItemIntoBasket'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/ShopSchemas/getListCategory'
+ *                          $ref: '#/components/BasketSchemas/post_AddItemIntoBasket'
  *          responses:
  *              201: 
  *                  description: Success
  *              400: 
  *                  description: Bad Request
  *              401: 
- *                  description: Unauthorization
+ *                  description: Authorization
  *              500: 
  *                  description: Internal Server Error 
  */
 
-
 /**
  * @swagger
- *  /getListCategoryWithProduct:
+ *  /Delete_ItemIntoBasket:
  *      get:
- *          tags : [Shop-Section Products]
- *          summary: get List Category With Product
- *          description: get List Category With Product
- *          requestBody:
- *              required: false
- *              content:
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/ShopSchemas/getListCategoryWithProduct'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/ShopSchemas/getListCategoryWithProduct'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
-
-/**
- * @swagger
- *  /getListCategoryWithSpecialChildren:
- *      post:
- *          tags : [Shop-Section Products]
- *          summary : receive List Category With Special Children  
- *          description: receive List Category With Special Children
+ *          tags: [Basket-Section Products]
+ *          summary: Deleting item in  basket
+ *          description: Deleting item in basket
  *          requestBody:
  *              required: true
- *              content:
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/ShopSchemas/getListCategoryWithSpecialChildren'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/ShopSchemas/getListCategoryWithSpecialChildren'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
-
-/**
- * @swagger
- *  /getListBrands:
- *      get:
- *          tags: [Shop-Section Products]
- *          summary: get List Brands
- *          description: receive  List Brands
- *          requestBody:
- *              required: false
  *              content: 
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/ShopSchemas/getListBrands'
+ *                          $ref: '#/components/BasketSchemas/Delete_ItemIntoBasket'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/ShopSchemas/getListBrands'
+ *                          $ref: '#/components/BasketSchemas/Delete_ItemIntoBasket'
  *          responses:
  *              201: 
  *                  description: Success
  *              400: 
  *                  description: Bad Request
  *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- * 
- */
-
-
-/**
- * @swagger
- *  /getListBrandsWithProduct:
- *       get:
- *          tags : [Shop-Section Products]
- *          summary : get List Brands With Product
- *          description: get List Brands  With Product
- *          requestBody:
- *              required: false
- *              content:
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/ShopSchemas/getListBrandsWithProduct'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/ShopSchemas/getListBrandsWithProduct'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
-
-/**
- * @swagger
- *  /getListBrandsWithSpecialChildren:
- *      post:
- *          tags : [Shop-Section Products]
- *          summary : receive List Brands   
- *          description: receive List Brands With Special Children
- *          requestBody:
- *              required: true
- *              content:
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/ShopSchemas/getListBrandsWithSpecialChildren'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/ShopSchemas/getListBrandsWithSpecialChildren'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
+ *                  description: Authorization
  *              500: 
  *                  description: Internal Server Error 
  */

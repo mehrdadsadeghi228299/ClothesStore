@@ -8,5 +8,6 @@ const router=require('express').Router();
 router.use(UserAuthRouter);
 router.use(shopRouter);
 router.use(AdminRouter);
+router.use(shopRouter);
 
 module.exports=router;

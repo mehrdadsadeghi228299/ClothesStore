@@ -3,7 +3,8 @@
  * @swagger
  *  components:
  *         AdminPanel: 
- *              post_AddProduct:
+ * 
+ *             post_AddProduct:
  *                  type: object
  *                  required:
  *                      -   Name
@@ -82,7 +83,7 @@
  *                          description: features of  products 
  *           
  *        
- *              put_enableProduct:
+ *             put_enableProduct:
  *                  type: object
  *                  required :
  *                      -   id
@@ -95,7 +96,7 @@
  *                          type: boolean
  *                          description: isAvailable of products
  *                      
- *              Delete_removeProduct:
+ *             Delete_removeProduct:
  *                  type: object
  *                  required :
  *                      -   id
@@ -137,7 +138,7 @@
  *                       ListProduct :
  *                          type : string
  *                          description: id of products
- *              put_enableBrands:
+ *             put_enableBrands:
  *                  type: object
  *                  required :
  *                      -   id
@@ -149,7 +150,7 @@
  *                       isAvailable:
  *                          type: boolean
  *                          description: isAvailable of products
- *              Delete_removeBrands:
+ *             Delete_removeBrands:
  *                  type: object
  *                  required :
  *                      -   id
@@ -158,9 +159,9 @@
  *                          type : string
  *                          description: id of products
  * 
- *              put_chooseForBestBrands:
+ *             put_chooseForBestBrands:
  *                   type: object             
- *              post_AddCategory:
+ *             post_AddCategory:
  *                  type: object
  *                  required :
  *                      -   title
