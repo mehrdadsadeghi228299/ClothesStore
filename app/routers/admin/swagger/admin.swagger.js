@@ -2,8 +2,8 @@
 /**
  * @swagger
  *  components:
- *         AdminPanel: 
- *             post_AddProduct:
+ *      AdminPanel : 
+ *             post_AddProduct :
  *                  type: object
  *                  required:
  *                      -   Name
@@ -25,7 +25,7 @@
  *                      -   showing
  *                      -   pageView
  *                      -   features
- *                  properties:
+ *                  properties :
  *                       Name:
  *                          type: string
  *                          description: Name of products
@@ -80,7 +80,7 @@
  *                       features:
  *                          type: object
  *                          description: features of  products         
- *             put_enableProduct:
+ *             put_enableProduct :
  *                  type: object
  *                  required :
  *                      -   id
@@ -92,8 +92,7 @@
  *                       isAvailable:
  *                          type: boolean
  *                          description: isAvailable of products
- *                      
- *             Delete_removeProduct:
+ *            Delete_removeProduct:
  *                  type: object
  *                  required :
  *                      -   id
@@ -101,64 +100,7 @@
  *                       id :
  *                          type : string
  *                          description: id of products
- *         
- *             post_AddBrands:
- *                  type: object
- *                  required :
- *                      -   Name
- *                      -   Author
- *                      -   date
- *                  properties:
- *                       Name :
- *                          type : string
- *                          description: id of products
- *                       Author :
- *                          type : object
- *                          description: id of products
- *                       date :
- *                          type : string
- *                          description: id of products
- *                         
- *
- *              put_chooseForBestProduct:
- *                  type: object
- *                                
- *              put_updateListProductIntoBrands:
- *                  type: object
- *                  required :
- *                      -   id
- *                      -   ListProduct
- *                  properties:
- *                       id :
- *                          type : string
- *                          description: id of products
- *                       ListProduct :
- *                          type : string
- *                          description: id of products
- *             put_enableBrands:
- *                  type: object
- *                  required :
- *                      -   id
- *                      -  isAvailable
- *                  properties:
- *                       id :
- *                          type : string
- *                          description: id of products
- *                       isAvailable:
- *                          type: boolean
- *                          description: isAvailable of products
- *             Delete_removeBrands:
- *                  type: object
- *                  required :
- *                      -   id
- *                  properties:
- *                       id :
- *                          type : string
- *                          description: id of products
- * 
- *             put_chooseForBestBrands:
- *                   type: object             
- *             post_AddCategory:
+ *            post_AddCategory:
  *                  type: object
  *                  required :
  *                      -   title
@@ -169,8 +111,8 @@
  *                          description: title of products
  *                       ListProduct :
  *                          type : object
- *                          description: List Products of products
- *             put_updateListProductsIntoCategory:
+ *                          description: List Products of product 
+ *             put_updateListProductsIntoCategory :
  *                  type: object
  *                  required :
  *                      -   id
@@ -182,7 +124,7 @@
  *                       ListProduct :
  *                          type : string
  *                          description: id of products
- *             put_enableCategory:
+ *             put_enableCategory :
  *                  type: object
  *                  required :
  *                      -   id
@@ -194,7 +136,7 @@
  *                       isAvailable:
  *                          type: boolean
  *                          description: isAvailable of products
- *             Delete_removeCategory:
+ *             Delete_removeCategory :
  *                  type: object
  *                  required :
  *                      -   id
@@ -202,7 +144,7 @@
  *                       id :
  *                          type : string
  *                          description: id of products
- *             put_chooseForBestCategory:
+ *             put_chooseForBestCategory :
  *                  type: object             
  *         
  *                  
@@ -298,138 +240,6 @@
  */
 
 
-/**
- * @swagger
- *  /post_AddBrands:
- *      post:
- *          tags: [Admin-section]
- *          summary: Add Brands 
- *          description: Add Brands 
- *          requestBody:
- *              required: true
- *              content: 
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/post_AddBrands'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/post_AddBrands'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
-
-/**
- * @swagger
- *  /put_chooseForBestProduct:
- *      put:
- *          tags: [Admin-section]
- *          summary: put_chooseForBestProduct
- *          description: put_chooseForBestProduct
- *          requestBody:
- *              required: true
- *              content: 
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/put_chooseForBestProduct'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/put_chooseForBestProduct'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
-/**
- * @swagger
- *  /put_updateListProductIntoBrands:
- *      put:
- *          tags: [Admin-section]
- *          summary: put_updateListProductIntoBrands
- *          description: put_updateListProductIntoBrands
- *          requestBody:
- *              required: true
- *              content: 
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/put_updateListProductIntoBrands'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/put_updateListProductIntoBrands'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
-/**
- * @swagger
- *  /put_enableBrands:
- *      put:
- *          tags: [Admin-section]
- *          summary: put_enableBrands
- *          description: put_enableBrands
- *          requestBody:
- *              required: true
- *              content: 
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/put_enableBrands'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/put_enableBrands'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
-
-/**
- * @swagger
- *  /Delete_removeBrands:
- *      delete:
- *          tags: [Admin-section]
- *          summary: Delete_removeBrands
- *          description: Delete_removeBrands
- *          requestBody:
- *              required: true
- *              content: 
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/Delete_removeBrands'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/Delete_removeBrands'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
 /**
  * @swagger
  *  /put_chooseForBestBrands:
