@@ -19,7 +19,7 @@ const ProductSchema=new mongoose.Schema({
     color:{type:[String],require:true},
     price:{type:Number,require:true},
     count:{type:Number,require:true},
-    numberOfSail:{type:Number,default:0},
+    numberOfSelling:{type:Number,default:0},
     isModify: {type:Boolean,require:false,default:false},
     isAvailable: {type:Boolean,require:false,default:false},
     showing: {type:Boolean,require:false,default:false},
@@ -38,7 +38,6 @@ const ProductSchema=new mongoose.Schema({
         height : "",
         width : "",
         weight : "",
-        colors : [],
         madeIn : ""
     }},
 },{

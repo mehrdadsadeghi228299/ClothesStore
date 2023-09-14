@@ -7,14 +7,11 @@
  *                  type: object
  *                  required :
  *                      -   title
- *                      -   ListProduct
  *                  properties:
  *                       title :
  *                          type : string
- *                          description: title of products
- *                       ListProduct :
- *                          type : object
- *                          description: List Products of product 
+ *                          description: title of Category
+ *                      
  *            put_updateListProductsIntoCategory :
  *                  type: object
  *                  required :
@@ -23,7 +20,7 @@
  *                  properties:
  *                       id :
  *                          type : string
- *                          description: id of products
+ *                          description: id of Category
  *                       ListProduct :
  *                          type : string
  *                          description: id of products
@@ -31,14 +28,14 @@
  *                  type: object
  *                  required :
  *                      -   id
- *                      -  isAvailable
+ *                      -  EnableSelling
  *                  properties:
  *                       id :
  *                          type : string
- *                          description: id of products
- *                       isAvailable:
+ *                          description: id of Category
+ *                       EnableSelling:
  *                          type: boolean
- *                          description: isAvailable of products
+ *                          description: EnableSelling of products
  *            Delete_removeCategory :
  *                  type: object
  *                  required :
@@ -46,7 +43,7 @@
  *                  properties:
  *                       id :
  *                          type : string
- *                          description: id of products
+ *                          description: id of Category
  *            put_chooseForBestCategory :
  *                  type: object             
  *         
@@ -64,7 +61,7 @@
 
 /**
  * @swagger
- *  /post_AddCategory:
+ *  /addCategory:
  *      post:
  *          tags: [Admin-section-Category]
  *          summary: Add Category 
@@ -91,7 +88,7 @@
 
 /**
  * @swagger
- *  /put_updateListProductsIntoCategory:
+ *  /updateListProductsIntoCategory:
  *      put:
  *          tags: [Admin-section-Category]
  *          summary: put_chooseForBestProduct
@@ -117,7 +114,7 @@
  */
 /**
  * @swagger
- *  /put_enableCategory:
+ *  /enableCategory:
  *      put:
  *          tags: [Admin-section-Category]
  *          summary: put_enableCategory
@@ -143,7 +140,7 @@
  */
 /**
  * @swagger
- *  /put_chooseForBestCategory:
+ *  /chooseForBestCategory:
  *      put:
  *          tags: [Admin-section-Category]
  *          summary: put_chooseForBestCategory
@@ -170,7 +167,7 @@
 
 /**
  * @swagger
- *  /Delete_removeCategory:
+ *  /removeCategory:
  *      delete:
  *          tags: [Admin-section-Category]
  *          summary: Delete_removeCategory

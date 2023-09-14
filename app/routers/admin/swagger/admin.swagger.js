@@ -19,12 +19,9 @@
  *                      -   color
  *                      -   price
  *                      -   count
- *                      -   numberOfSail
  *                      -   isModify
  *                      -   isAvailable
  *                      -   showing
- *                      -   pageView
- *                      -   features
  *                  properties :
  *                       Name:
  *                          type: string
@@ -111,7 +108,7 @@
 
 /**
  * @swagger
- *  /post_AddProduct:
+ *  /addProduct:
  *      post:
  *          tags: [Admin-section]
  *          summary: Add All products
@@ -138,7 +135,7 @@
 
 /**
  * @swagger
- *  /put_enableProduct:
+ *  /enableProduct:
  *      put:
  *          tags: [Admin-section]
  *          summary: enable Product
@@ -165,7 +162,7 @@
 
 /**
  * @swagger
- *  /Delete_removeProduct:
+ *  /removeProduct:
  *      delete:
  *          tags: [Admin-section]
  *          summary: removeProduct

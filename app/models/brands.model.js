@@ -7,16 +7,18 @@ const schema = new mongoose.Schema({
     autopopulate: true
   }
 });
+const Author = new mongoose.Schema({
+  name: { type: String, require: true },
+  age: { type: Number, require: true },
+
+});
 
 const BrandsSchema = new mongoose.Schema({
   Name: { type: String, require: true },
-  date: { type: Date, require: true },
-  Author: {
-    name: String,
-    age: Number,
-  },
+  date: { type: String, require: true },
+  AuthorName: {type:String,require:true },
   ListProduct: { type: [mongoose.Types.ObjectId], ref: 'ProductModel', autopopulate: true },
-  enableSailing: { type: Boolean, default: false }
+  EnableSelling: { type: Boolean, default: false }
 });
 
 

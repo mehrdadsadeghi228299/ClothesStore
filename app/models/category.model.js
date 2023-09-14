@@ -14,7 +14,7 @@ schema.plugin(require('mongoose-autopopulate'));
 const CategorySchema=new mongoose.Schema({
     title:{type:String,require:true},
     ListProduct : {type :[ mongoose.Types.ObjectId],ref:'ProductModel',autopopulate:true},
-    enableSailing: { type: Boolean, default: false }
+    EnableSelling: { type: Boolean, default: false }
 
 });
 

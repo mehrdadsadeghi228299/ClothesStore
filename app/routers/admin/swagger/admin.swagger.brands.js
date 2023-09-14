@@ -6,18 +6,18 @@
  *                  type: object
  *                  required :
  *                      -   Name
- *                      -   Author
+ *                      -   AuthorName
  *                      -   date
  *                  properties:
  *                       Name :
  *                          type : string
- *                          description: id of products
- *                       Author :
- *                          type : object
- *                          description: id of products
+ *                          description: Name of Brands
+ *                       AuthorName :
+ *                          type : string
+ *                          description: AuthorName of Brands
  *                       date :
  *                          type : string
- *                          description: id of products
+ *                          description: date of Brands
  *            put_chooseForBestProduct :
  *                  type: object
  *              
@@ -32,7 +32,7 @@
  *                  properties:
  *                       id :
  *                          type : string
- *                          description: id of products
+ *                          description: id of Brands
  *                       ListProduct :
  *                          type : string
  *                          description: id of products
@@ -40,14 +40,14 @@
  *                  type: object
  *                  required :
  *                      -   id
- *                      -  isAvailable
+ *                      -  EnableSelling
  *                  properties:
  *                       id :
  *                          type : string
- *                          description: id of products
- *                       isAvailable:
+ *                          description: id of Brands
+ *                       EnableSelling:
  *                          type: boolean
- *                          description: isAvailable of products
+ *                          description: EnableSelling of products
  *            Delete_removeBrands :
  *                  type: object
  *                  required :
@@ -55,7 +55,7 @@
  *                  properties:
  *                       id :
  *                          type : string
- *                          description: id of products
+ *                          description: id of Brands
  * 
  * 
  * */
@@ -72,7 +72,7 @@
 
 /**
  * @swagger
- *  /post_AddBrands:
+ *  /addBrands:
  *      post:
  *          tags: [Admin-Brands-section]
  *          summary: Add Brands 
@@ -99,7 +99,7 @@
 
 /**
  * @swagger
- *  /put_chooseForBestProduct:
+ *  /chooseForBestProduct:
  *      put:
  *          tags: [Admin-Brands-section]
  *          summary: put_chooseForBestProduct
@@ -125,7 +125,7 @@
  */
 /**
  * @swagger
- *  /put_updateListProductIntoBrands:
+ *  /updateListProductIntoBrands:
  *      put:
  *          tags: [Admin-Brands-section]
  *          summary: put_updateListProductIntoBrands
@@ -151,7 +151,7 @@
  */
 /**
  * @swagger
- *  /put_enableBrands:
+ *  /enableBrands:
  *      put:
  *          tags: [Admin-Brands-section]
  *          summary: put_enableBrands
@@ -178,7 +178,7 @@
 
 /**
  * @swagger
- *  /Delete_removeBrands:
+ *  /removeBrands:
  *      delete:
  *          tags: [Admin-Brands-section]
  *          summary: Delete_removeBrands

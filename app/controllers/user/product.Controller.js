@@ -133,7 +133,7 @@ class ProductController extends Controller {
         try {
             let location='/ProductControllerClass/getListCategory'
 
-            const findProduct = await CategoryModel.find({ enableSailing: true });
+            const findProduct = await CategoryModel.find({ EnableSelling: true });
            
             if (findProduct.length <1 ) {
                 return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
@@ -240,8 +240,8 @@ class ProductController extends Controller {
         try {
             let location='/ProductControllerClass/getListBrands'
 
-            const findBrands = await BrandsModel.find({ enableSailing: true });
-
+            const findBrands = await BrandsModel.find({ EnableSelling: true });
+            console.log(findBrands);
             if (findBrands.length <1 ) {
                 return res.status(HttpStatus.NOT_IMPLEMENTED).json ({
                     statusCodes: HttpStatus.NOT_IMPLEMENTED,
@@ -260,12 +260,7 @@ class ProductController extends Controller {
             )
 
         } catch (error) {
-        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json ({
-                statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
-                where: location,
-                Modified: false,
-                Error: error
-            });
+     
         next(error);
         }
     }
