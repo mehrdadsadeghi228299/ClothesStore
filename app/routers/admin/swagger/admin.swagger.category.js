@@ -1,30 +1,21 @@
+
 /**
  * @swagger
  *  components:
- *          AdminBrandsPanel :       
- *            post_AddBrands:
+ *         AdminCategoryPanel: 
+ *            post_AddCategory:
  *                  type: object
  *                  required :
- *                      -   Name
- *                      -   Author
- *                      -   date
+ *                      -   title
+ *                      -   ListProduct
  *                  properties:
- *                       Name :
+ *                       title :
  *                          type : string
- *                          description: id of products
- *                       Author :
+ *                          description: title of products
+ *                       ListProduct :
  *                          type : object
- *                          description: id of products
- *                       date :
- *                          type : string
- *                          description: id of products
- *            put_chooseForBestProduct :
- *                  type: object
- *              
- *            put_chooseForBestBrands :
- *                   type: object             
- *                   
- *            put_updateListProductIntoBrands :
+ *                          description: List Products of product 
+ *            put_updateListProductsIntoCategory :
  *                  type: object
  *                  required :
  *                      -   id
@@ -36,7 +27,7 @@
  *                       ListProduct :
  *                          type : string
  *                          description: id of products
- *            put_enableBrands :
+ *            put_enableCategory :
  *                  type: object
  *                  required :
  *                      -   id
@@ -48,7 +39,7 @@
  *                       isAvailable:
  *                          type: boolean
  *                          description: isAvailable of products
- *            Delete_removeBrands :
+ *            Delete_removeCategory :
  *                  type: object
  *                  required :
  *                      -   id
@@ -56,36 +47,37 @@
  *                       id :
  *                          type : string
  *                          description: id of products
- * 
- * 
- * */
-
-
+ *            put_chooseForBestCategory :
+ *                  type: object             
+ *         
+ *                  
+ *                         
+ */
 
 /**
  * @swagger
  *  tags:
- *      name : Admin-Brands-section
- *      description : Admin-Brands-section
+ *      name : Admin-section-Category
+ *      description : Admin-section-Category
  */
 
 
 /**
  * @swagger
- *  /post_AddBrands:
+ *  /post_AddCategory:
  *      post:
- *          tags: [Admin-Brands-section]
- *          summary: Add Brands 
- *          description: Add Brands 
+ *          tags: [Admin-section-Category]
+ *          summary: Add Category 
+ *          description: Add Category 
  *          requestBody:
  *              required: true
  *              content: 
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/AdminBrandsPanel/post_AddBrands'
+ *                          $ref: '#/components/AdminCategoryPanel/post_AddCategory'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/AdminBrandsPanel/post_AddBrands'
+ *                          $ref: '#/components/AdminCategoryPanel/post_AddCategory'
  *          responses:
  *              201: 
  *                  description: Success
@@ -99,20 +91,20 @@
 
 /**
  * @swagger
- *  /put_chooseForBestProduct:
+ *  /put_updateListProductsIntoCategory:
  *      put:
- *          tags: [Admin-Brands-section]
+ *          tags: [Admin-section-Category]
  *          summary: put_chooseForBestProduct
  *          description: put_chooseForBestProduct
  *          requestBody:
- *              required: false
+ *              required: true
  *              content: 
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/AdminBrandsPanel/put_chooseForBestProduct'
+ *                          $ref: '#/components/AdminCategoryPanel/put_updateListProductsIntoCategory'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/AdminBrandsPanel/put_chooseForBestProduct'
+ *                          $ref: '#/components/AdminCategoryPanel/put_updateListProductsIntoCategory'
  *          responses:
  *              201: 
  *                  description: Success
@@ -125,20 +117,20 @@
  */
 /**
  * @swagger
- *  /put_updateListProductIntoBrands:
+ *  /put_enableCategory:
  *      put:
- *          tags: [Admin-Brands-section]
- *          summary: put_updateListProductIntoBrands
- *          description: put_updateListProductIntoBrands
+ *          tags: [Admin-section-Category]
+ *          summary: put_enableCategory
+ *          description: put_enableCategory
  *          requestBody:
  *              required: true
  *              content: 
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/AdminBrandsPanel/put_updateListProductIntoBrands'
+ *                          $ref: '#/components/AdminCategoryPanel/put_enableCategory'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/AdminBrandsPanel/put_updateListProductIntoBrands'
+ *                          $ref: '#/components/AdminCategoryPanel/put_enableCategory'
  *          responses:
  *              201: 
  *                  description: Success
@@ -151,20 +143,20 @@
  */
 /**
  * @swagger
- *  /put_enableBrands:
+ *  /put_chooseForBestCategory:
  *      put:
- *          tags: [Admin-Brands-section]
- *          summary: put_enableBrands
- *          description: put_enableBrands
+ *          tags: [Admin-section-Category]
+ *          summary: put_chooseForBestCategory
+ *          description: put_chooseForBestCategory
  *          requestBody:
  *              required: true
  *              content: 
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/AdminBrandsPanel/put_enableBrands'
+ *                          $ref: '#/components/AdminCategoryPanel/put_chooseForBestCategory'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/AdminBrandsPanel/put_enableBrands'
+ *                          $ref: '#/components/AdminCategoryPanel/put_chooseForBestCategory'
  *          responses:
  *              201: 
  *                  description: Success
@@ -178,20 +170,20 @@
 
 /**
  * @swagger
- *  /Delete_removeBrands:
+ *  /Delete_removeCategory:
  *      delete:
- *          tags: [Admin-Brands-section]
- *          summary: Delete_removeBrands
- *          description: Delete_removeBrands
+ *          tags: [Admin-section-Category]
+ *          summary: Delete_removeCategory
+ *          description: Delete_removeCategory
  *          requestBody:
  *              required: true
  *              content: 
  *                  application/x-www-form-urlencoded:
  *                      schema:
- *                          $ref: '#/components/AdminBrandsPanel/Delete_removeBrands'
+ *                          $ref: '#/components/AdminCategoryPanel/Delete_removeCategory'
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/AdminBrandsPanel/Delete_removeBrands'
+ *                          $ref: '#/components/AdminCategoryPanel/Delete_removeCategory'
  *          responses:
  *              201: 
  *                  description: Success
@@ -202,3 +194,5 @@
  *              500: 
  *                  description: Internal Server Error 
  */
+
+

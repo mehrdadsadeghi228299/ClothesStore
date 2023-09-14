@@ -2,8 +2,8 @@
 /**
  * @swagger
  *  components:
- *      AdminPanel : 
- *             post_AddProduct :
+ *         AdminPanel : 
+ *            post_AddProduct :
  *                  type: object
  *                  required:
  *                      -   Name
@@ -80,7 +80,7 @@
  *                       features:
  *                          type: object
  *                          description: features of  products         
- *             put_enableProduct :
+ *            put_enableProduct :
  *                  type: object
  *                  required :
  *                      -   id
@@ -99,56 +99,7 @@
  *                  properties:
  *                       id :
  *                          type : string
- *                          description: id of products
- *            post_AddCategory:
- *                  type: object
- *                  required :
- *                      -   title
- *                      -   ListProduct
- *                  properties:
- *                       title :
- *                          type : string
- *                          description: title of products
- *                       ListProduct :
- *                          type : object
- *                          description: List Products of product 
- *             put_updateListProductsIntoCategory :
- *                  type: object
- *                  required :
- *                      -   id
- *                      -   ListProduct
- *                  properties:
- *                       id :
- *                          type : string
- *                          description: id of products
- *                       ListProduct :
- *                          type : string
- *                          description: id of products
- *             put_enableCategory :
- *                  type: object
- *                  required :
- *                      -   id
- *                      -  isAvailable
- *                  properties:
- *                       id :
- *                          type : string
- *                          description: id of products
- *                       isAvailable:
- *                          type: boolean
- *                          description: isAvailable of products
- *             Delete_removeCategory :
- *                  type: object
- *                  required :
- *                      -   id
- *                  properties:
- *                       id :
- *                          type : string
- *                          description: id of products
- *             put_chooseForBestCategory :
- *                  type: object             
- *         
- *                  
- *                         
+ *                          description: id of products                  
  */
 
 /**
@@ -228,168 +179,6 @@
  *                  application/json:
  *                      schema:
  *                          $ref: '#/components/AdminPanel/Delete_removeProduct'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
-
-
-/**
- * @swagger
- *  /put_chooseForBestBrands:
- *      put:
- *          tags: [Admin-section]
- *          summary: put_chooseForBestBrands
- *          description: put_chooseForBestBrands
- *          requestBody:
- *              required: true
- *              content: 
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/put_chooseForBestBrands'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/put_chooseForBestBrands'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
-
-
-/**
- * @swagger
- *  /post_AddCategory:
- *      post:
- *          tags: [Admin-section]
- *          summary: Add Category 
- *          description: Add Category 
- *          requestBody:
- *              required: true
- *              content: 
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/post_AddCategory'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/post_AddCategory'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
-
-/**
- * @swagger
- *  /put_updateListProductsIntoCategory:
- *      put:
- *          tags: [Admin-section]
- *          summary: put_chooseForBestProduct
- *          description: put_chooseForBestProduct
- *          requestBody:
- *              required: true
- *              content: 
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/put_updateListProductsIntoCategory'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/put_updateListProductsIntoCategory'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
-/**
- * @swagger
- *  /put_enableCategory:
- *      put:
- *          tags: [Admin-section]
- *          summary: put_enableCategory
- *          description: put_enableCategory
- *          requestBody:
- *              required: true
- *              content: 
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/put_enableCategory'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/put_enableCategory'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
-/**
- * @swagger
- *  /put_chooseForBestCategory:
- *      put:
- *          tags: [Admin-section]
- *          summary: put_chooseForBestCategory
- *          description: put_chooseForBestCategory
- *          requestBody:
- *              required: true
- *              content: 
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/put_chooseForBestCategory'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/put_chooseForBestCategory'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
-
-/**
- * @swagger
- *  /Delete_removeCategory:
- *      delete:
- *          tags: [Admin-section]
- *          summary: Delete_removeCategory
- *          description: Delete_removeCategory
- *          requestBody:
- *              required: true
- *              content: 
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/Delete_removeCategory'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/AdminPanel/Delete_removeCategory'
  *          responses:
  *              201: 
  *                  description: Success
