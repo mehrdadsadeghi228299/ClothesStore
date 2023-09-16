@@ -15,12 +15,12 @@
  *                  type: object
  *                  required :
  *                      -   id
- *                      -   ListProduct
+ *                      -   product_id
  *                  properties:
  *                       id :
  *                          type : string
  *                          description: id of Tags
- *                       ListProduct :
+ *                       product_id :
  *                          type : string
  *                          description: id of products
  *            Delete_removeTags :

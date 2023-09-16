@@ -20,6 +20,15 @@ router.post('/getListCategoryWithSpecialChildren',ProductController.getListCateg
 router.get('/getListBrands',ProductController.getListBrands);
 router.get('/getListBrandsWithProduct',ProductController.getListBrandsWithProduct);
 router.post('/getListBrandsWithSpecialChildren',ProductController.getListBrandsWithSpecialChildren);
+
+
+/* ***********************************               Category Area                           **************************** */
+     
+
+router.get('/getListTags',ProductController.getListTags);
+router.get('/getListTagsWithChild',ProductController.getListTagsWithChild);
+router.post('/getListTagsWithSpecialChildren',ProductController.getListTagsWithSpecialChildren);
+
 module.exports={
         shopRouter:router
 }

@@ -555,7 +555,7 @@ class AdminController extends Controller {
                     'product_id': product_id
                 }
             })
-            if (resultUpdateListProductCategory.length < 1) {
+            if (resultUpdateListProductTags.length < 1) {
                 return res.status(HttpStatus.NOT_IMPLEMENTED).json({
                     statusCodes: HttpStatus.NOT_IMPLEMENTED,
                     where: location,

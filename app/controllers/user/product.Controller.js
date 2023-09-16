@@ -4,8 +4,10 @@ const { CheckIsEmpty, ErrorJsonForm } = require("../../utils/utils");
 const Controller = require("../base.Controller");
 const { StatusCodes: HttpStatus } = require("http-status-codes");
 const { BrandsModel } = require("../../models/brands.model");
+const { TagsModel } = require("../../models/tags.model");
 
 class ProductController extends Controller {
+
     /* ***********************************               products Area                           **************************** */
 
 
@@ -284,6 +286,92 @@ class ProductController extends Controller {
                     where: location,
                     Modified: false,
                     findBrands
+                }
+            )
+
+        } catch (error) {
+
+            next(error);
+        }
+    }
+
+  /* ***********************************               Tags    Area                           **************************** */
+
+    async getListTags(req, res, next) {
+        try {
+            var location = '/ProductControllerClass/getListTags'
+
+            const findBrands = await TagsModel.find();
+            if (findBrands.length < 1) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+            return res.status(HttpStatus.OK).json(
+                {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    findBrands
+                }
+            )
+
+        } catch (error) {
+
+            next(error);
+        }
+    }
+
+    async getListTagsWithChild(req, res, next) {
+        try {
+            var location = '/ProductControllerClass/getListTagsWithChild'
+
+            const findTags = await TagsModel.find().populate('product_id').exec();
+            
+            if (findTags.length < 1) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: " TagsModel is  Empty "
+                });
+            }
+            return res.status(HttpStatus.OK).json(
+                {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    findTags
+                }
+            )
+
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async getListTagsWithSpecialChildren(req, res, next) {
+        try {
+            var location = '/ProductControllerClass/getListTagsWithSpecialChildren'
+            const { name } = req.body;
+            const findTagsModel = await TagsModel.find({ name: name }).populate('product_id');
+            if (findTagsModel.length < 1) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: " TagsModel is Empty for this name :" + name 
+                });
+            }
+            return res.status(HttpStatus.OK).json(
+                {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    findTagsModel
                 }
             )
 

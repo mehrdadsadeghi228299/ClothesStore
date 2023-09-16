@@ -29,7 +29,7 @@ router.put('/chooseForBestCategory',AdminController.put_chooseForBestCategory);
 
 /** ------------------------------------------   ---------------------------------------------------------------------- */
 router.post('/addTags',AdminController.post_AddTags);
-router.put('/updateListProductsIntoTags',AdminController.put_updateListProductsIntoCategory);
+router.put('/updateListProductsIntoTags',AdminController.put_updateListProductsIntoTags);
 router.delete('/removeTags',AdminController.Delete_removeTags);
 
 
