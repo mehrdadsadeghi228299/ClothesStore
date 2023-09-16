@@ -6,5 +6,5 @@ const WishListSchema = new mongoose.Schema({
 
 });
 module.exports = {
-    WishListModel : mongoose.model("WishListSchema", WishListSchema)
+    WishListModel : mongoose.model("WishListModel", WishListSchema)
 }

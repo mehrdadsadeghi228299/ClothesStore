@@ -5,21 +5,21 @@ const router=require('express').Router();
 
 router.get('/getListProduct',ProductController.getListProduct);
 router.post('/findProductById/:id',ProductController.findProductById);
-router.post('/findProductByProductCode/:code',ProductController.findProductByProductCode);
+router.post('/findProductByProductCode',ProductController.findProductByProductCode);
 
 
 /* ***********************************               Brands Area                           **************************** */
 
 router.get('/getListCategory',ProductController.getListCategory);
 router.get('/getListCategoryWithProduct',ProductController.getListCategoryWithProduct);
-router.post('/getListCategoryWithSpecialChildren/:titleCategory',ProductController.getListCategoryWithSpecialChildren);
+router.post('/getListCategoryWithSpecialChildren',ProductController.getListCategoryWithSpecialChildren);
 
 /* ***********************************               Category Area                           **************************** */
      
 
 router.get('/getListBrands',ProductController.getListBrands);
 router.get('/getListBrandsWithProduct',ProductController.getListBrandsWithProduct);
-router.post('/getListBrandsWithSpecialChildren/:nameBrands',ProductController.getListBrandsWithSpecialChildren);
+router.post('/getListBrandsWithSpecialChildren',ProductController.getListBrandsWithSpecialChildren);
 module.exports={
         shopRouter:router
 }

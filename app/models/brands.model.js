@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose");
 const schema = new mongoose.Schema({
   populatedField: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'ForeignModel',
+    ref: 'ProductModel',
     // `populatedField`
     autopopulate: true
   }
@@ -17,11 +17,11 @@ const BrandsSchema = new mongoose.Schema({
   Name: { type: String, require: true },
   date: { type: String, require: true },
   AuthorName: {type:String,require:true },
-  ListProduct: { type: [mongoose.Types.ObjectId], ref: 'ProductModel', autopopulate: true },
+  ListProduct: { type: [mongoose.Types.ObjectId], ref: 'ProductModel'},
   EnableSelling: { type: Boolean, default: false }
 });
 
 
 module.exports = {
-  BrandsModel: mongoose.model('BrandsSchema', BrandsSchema)
+  BrandsModel: mongoose.model('BrandsModel', BrandsSchema)
 }

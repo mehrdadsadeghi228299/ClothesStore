@@ -96,7 +96,7 @@
  *                  properties:
  *                       id :
  *                          type : string
- *                          description: id of products                  
+ *                          description: id of products  
  */
 
 /**
@@ -105,6 +105,7 @@
  *      name : Admin-section
  *      description : Admin-section
  */
+
 
 /**
  * @swagger

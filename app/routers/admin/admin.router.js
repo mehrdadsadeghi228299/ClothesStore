@@ -27,6 +27,12 @@ router.delete('/removeCategory',AdminController.Delete_removeCategory);
 router.put('/enableCategory',AdminController.put_enableCategory);
 router.put('/chooseForBestCategory',AdminController.put_chooseForBestCategory);
 
+/** ------------------------------------------   ---------------------------------------------------------------------- */
+router.post('/addTags',AdminController.post_AddTags);
+router.put('/updateListProductsIntoTags',AdminController.put_updateListProductsIntoCategory);
+router.delete('/removeTags',AdminController.Delete_removeTags);
+
+
 module.exports={
         AdminRouter:router
 }

@@ -3,7 +3,7 @@ const { default: mongoose } = require("mongoose");
 const schema = new mongoose.Schema({
     populatedField: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'ForeignModel',
+      ref: 'ProductModel',
       autopopulate: true
     }
   });
@@ -20,5 +20,5 @@ const CategorySchema=new mongoose.Schema({
 
 
 module.exports={
-    CategoryModel:mongoose.model('CategorySchema',CategorySchema)
+    CategoryModel:mongoose.model('CategoryModel',CategorySchema)
 }

@@ -7,6 +7,7 @@ const { theFormOfAnswer, ErrorJsonForm } = require("../../utils/utils");
 const { BrandsModel } = require("../../models/brands.model");
 const { CategoryModel } = require("../../models/category.model");
 const { default: mongoose } = require("mongoose");
+const { TagsModel } = require("../../models/tags.model");
 
 
 class AdminController extends Controller {
@@ -90,8 +91,13 @@ class AdminController extends Controller {
             var location = '/AdminControllerClass/Delete_removeProduct';
             const { id } = req.body;
             if (!typeof id === mongoose.Types.ObjectId) {
-                ErrorJsonForm("id is not typeof objectid ", HttpStatus.BAD_REQUEST)
-            }
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "id is not typeof objectid "
+                });            
+              }
 
             /* send otp code on the phone for access remove items on the list   */
 
@@ -136,9 +142,13 @@ class AdminController extends Controller {
             
             const errorValidator = validationResult(req);
             if (!errorValidator) {
-                ErrorJsonForm(errorValidator, HttpStatus.NOT_ACCEPTABLE, location, false);
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: errorValidator
+                });   
             }
-            
             const { Name, AuthorName,date  } = req.body
             const check = await BrandsModel.findOne({Name:Name})
             if(check){
@@ -189,14 +199,22 @@ class AdminController extends Controller {
 
             const errorValidator = validationResult(req);
             if (!errorValidator) {
-                ErrorJsonForm(errorValidator, HttpStatus.NOT_ACCEPTABLE, location, false);
-            }
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: errorValidator
+                });            }
 
             const { id, ListProduct } = req.body
-            const answer = checkExistProduct(ListProduct, ProductModel);
-            if (!answer) {
-                ErrorJsonForm(answer, HttpStatus.INTERNAL_SERVER_ERROR, location, false);
-
+            const check = await ProductModel.findOne({ListProduct:ListProduct})
+            if(check){
+                return res.status(HttpStatus.EXPECTATION_FAILED).json({
+                    statusCodes: HttpStatus.EXPECTATION_FAILED,
+                    where: location,
+                    Modified: false,
+                    result:"the ListProduct is not  exist in products "
+                });
             }
             const resultUpdateListProductBrands = await BrandsModel.findByIdAndUpdate({ _id: id }, {
                 '$push': {
@@ -355,6 +373,7 @@ class AdminController extends Controller {
             next(error);
         }
     }
+    
     async put_updateListProductsIntoCategory(req, res, next) {
         try {
             var location = '/AdminControllerClass/put_updateListProductsCategory';
@@ -472,10 +491,135 @@ class AdminController extends Controller {
             next(error)
         }
     }
+    /* ***********************************                Tags Area                           **************************** */
+
+
+    async post_AddTags(req, res, next) {
+    try {
+        var location = '/AdminControllerClass/Addtags';
+
+       
+
+        const { name } = req.body
+        const resCheck=await TagsModel.findOne({name:name})
+        console.log(resCheck);
+        if(resCheck){
+            return res.status(HttpStatus.NOT_IMPLEMENTED).json({
+                statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                where: location,
+                Modified: false,
+                result:"the Tags is already exist with id : " + resCheck._id
+            });
+        }
+        const resultCreateCategory = await TagsModel.create({name:name});
+        if (resultCreateCategory.length < 1) {
+            return res.status(HttpStatus.NOT_IMPLEMENTED).json({
+                statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                where: location ,
+                Modified: false ,
+                Error: "is Empty "
+            });
+        }
+        return res.status(HttpStatus.OK).json(
+            {
+                statusCodes: HttpStatus.OK,
+                where: location,
+                Modified: true,
+                resultCreateCategory
+            }
+        )
+
+    } catch (error) {
+      
+        next(error);
+    }
+    }
+
+    async put_updateListProductsIntoTags(req, res, next) {
+        try {
+            var location = '/AdminControllerClass/put_updateListProductsIntoTags';
+
+            const { id, product_id } = req.body
+            const resCheck=await ProductModel.findOne({product_id:product_id})
+            if(resCheck){
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    result: "the product_id is not exist with id : " + product_id
+                });
+            }
+           
+            const resultUpdateListProductTags = await TagsModel.findByIdAndUpdate({ _id: id }, {
+                '$push': {
+                    'product_id': product_id
+                }
+            })
+            if (resultUpdateListProductCategory.length < 1) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+            return res.status(HttpStatus.OK).json(
+                {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    resultUpdateListProductTags
+                }
+            )
+
+        } catch (error) {
+           
+            next(error);
+        }
+    }
+
+    async Delete_removeTags(req, res, next) {
+        try {
+
+            var location = '/AdminControllerClass/Delete_removeTags';
+            const { id } = req.body;
+            if (!typeof id === mongoose.Types.ObjectId) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    result: "id is not typeof objectid "
+                });
+            }
+
+            /* send otp code on the phone for access remove items on the list   */
+
+            const resultsForDeleteTags = await TagsModel.findByIdAndDelete(id);
+
+            if (resultsForDeleteProduct.length < 1) {
+                return res.status(HttpStatus.NOT_IMPLEMENTED).json({
+                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
+                    where: location,
+                    Modified: false,
+                    Error: "is Empty "
+                });
+            }
+            return res.status(HttpStatus.OK).json(
+                {
+                    statusCodes: HttpStatus.OK,
+                    where: location,
+                    Modified: false,
+                    resultsForDeleteTags
+                }
+            )
+
+        } catch (error) {
+           
+            next(error);
+        }
+    }
+ 
 }
-
-
-
 module.exports = {
     AdminController: new AdminController
 }

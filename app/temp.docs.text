@@ -1,0 +1,21 @@
+{
+  "Name": "P2",
+  "title": "T2",
+  "brand_id": "6505607eb0d7b5e19f37f982",
+  "tags":["650568f9134cb61a0ef7b012","65056944134cb61a0ef7b016","6505695c134cb61a0ef7b019"],
+  "categoryFatherId": "65056107b0d7b5e19f37f986",
+  "images": "mfkmvfobokbkno",
+  "shortDescription": "Description of products Description of products",
+  "Description": "Description of products Description of products",
+  "productCode": 25352,
+  "price": 250,
+  "size":["25","30","36"],
+  "color":["blue","green","red"],
+  "count": 500,
+  "numberOfSail": 0,
+  "isModify": true,
+  "isAvailable": true,
+  "showing": true,
+  "pageView": {},
+  "features": {}
+}

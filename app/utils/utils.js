@@ -110,6 +110,9 @@ async function checkExistProduct(id, model) {
     if (answer) return true
     return false
 }
+async function createProductCode(){
+    
+}
 
 module.exports = {
     CheckExistUser,
