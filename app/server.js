@@ -78,7 +78,7 @@ module.exports=class Application{
         const server=http.createServer(this.#app);
         const client= createClient();
         client.on('error',err=> console.log('Redis Client Error ',err));
-        client.on('connect', console.log('Redis Client connect '));
+        client.on('connect',() =>console.log('\nRedis Client connect port: 6379'));
         await client.connect();
         server.listen(this.#PORT,()=>{
             console.log(`server run on port http://localhost:${this.#PORT}`);
