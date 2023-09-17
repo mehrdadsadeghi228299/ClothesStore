@@ -11,7 +11,7 @@
  *                       text:
  *                          type: string
  *                          description: text for searching in title               
- *              post_AddItemIntoBasket:
+ *             post_AddItemIntoBasket:
  *                  type: object
  *                  required:
  *                      -   shortdes
@@ -19,7 +19,7 @@
  *                       shortdes:
  *                          type: string
  *                          description: shortdes for searching in shortDesorption     
- *              searchOnDescription:
+ *             searchOnDescription:
  *                  type: object
  *                  required:
  *                      -   des

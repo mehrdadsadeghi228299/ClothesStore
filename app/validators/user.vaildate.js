@@ -1,7 +1,7 @@
 const { body } = require('express-validator');
 
 const validatorUser=[
-    body('userName').notEmpty().trim().isString().toLowerCase(),
+    body('userName').notEmpty().trim().isString().toLowerCase().withMessage(" UserName is not valid"),
     body('name').notEmpty().trim().isString().toLowerCase().isLength({min:3,max:15}).withMessage(" name is not valid"),
     body('lastName').notEmpty().trim().isString().toLowerCase().isLength({min:3,max:15}).withMessage(" lastName is not valid"),
     body('email').isEmail().normalizeEmail().notEmpty().withMessage(" email is not valid"),

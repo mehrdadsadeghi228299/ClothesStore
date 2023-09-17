@@ -5,8 +5,7 @@ const {shopRouter} = require('./shop/shop.router');
 
 const router=require('express').Router();
 
-
-router.use(UserAuthRouter);
+router.use("/user",UserAuthRouter)
 router.use(shopRouter);
 router.use(AdminRouter);
 router.use(shopRouter);
