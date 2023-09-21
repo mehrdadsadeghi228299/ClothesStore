@@ -9,7 +9,7 @@ const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
 const { Server } = require('socket.io');
 const { log } = require('console');
-const {createClient}=require('redis');
+const initRedis = require('./utils/initRedis');
 module.exports=class Application{
     #app=express();
     #DB_URL
@@ -74,12 +74,15 @@ module.exports=class Application{
             )
           );
     }
+    async createInitServer(){
+      try {
+        initRedis();
+      } catch (error) {
+        console.error(error);
+      }
+    }
     async createdServer(){
         const server=http.createServer(this.#app);
-        const client= createClient();
-        client.on('error',err=> console.log('Redis Client Error ',err));
-        client.on('connect',() =>console.log('\nRedis Client connect port: 6379'));
-        await client.connect();
         server.listen(this.#PORT,()=>{
             console.log(`server run on port http://localhost:${this.#PORT}`);
  

@@ -8,6 +8,7 @@ const  empty = require('is-empty');
 const JWT=require('jsonwebtoken');
 const Controller = require('../../base.Controller');
 const { UserModel } = require('../../../models/user.model');
+const {initRedis} = require('../../../utils/initRedis');
 const KEYTOKEN="6d65687264616473616465676869";
 const KEYREFRESH="6865646e686d6a672c6a632c63686b2c6b6a2c6b6b2c686b2e";
 
@@ -25,7 +26,7 @@ class UserControllerClass extends Controller{
     async signupUser(req,res,next){
 
        try {
-        const errorValidator=validationResult(req);
+        const errorValidator = validationResult(req);
         if(empty(errorValidator)){
             res.status(HttpStatus.BAD_REQUEST).json({
                 statusCodes:HttpStatus.BAD_REQUEST,
@@ -46,9 +47,10 @@ class UserControllerClass extends Controller{
         const newUser= await UserModel.create({
             userName:userName,name:name,lastName:lastName,mobile:mobile,password:newPass,email:email
         });
-
         const tokenAccess =  CreatedJWT({id:newUser._id,Username:newUser.userName},KEYTOKEN);
         const RefreshToken = CreatedRefreshJWT({id:newUser._id,Username:newUser.userName},KEYREFRESH)
+        const redisUser_id= `${newUser.mobile}`;
+        const saveRefreshTokenOnRedis = initRedis.set(redisUser_id,RefreshToken);
 
         return res.status(HttpStatus.OK).json({
                 statusCodes:HttpStatus.OK,
@@ -145,7 +147,8 @@ class UserControllerClass extends Controller{
         const {refreshToken ,mobile}= req.body;
         const newUser=await UserModel.findOne({mobile:mobile});
         if (refreshToken == null) return res.sendStatus(HttpStatus.UNAUTHORIZED)
-        if (!refreshTokens.includes(refreshToken)) return res.sendStatus(HttpStatus.UNAUTHORIZED)
+        extractRefreshTokenAsRedis=initRedis.get(`${newUser.mobile}`)
+        if (!refreshToken.includes(extractRefreshTokenAsRedis)) return res.sendStatus(HttpStatus.UNAUTHORIZED)
        
         return CreatedRefreshIfJWT(refreshToken,KEYREFRESH,{id:newUser._id,Username:newUser.userName},KEYTOKEN)
       
