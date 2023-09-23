@@ -6,7 +6,7 @@ client.on("ready", () => console.log("connected to redis and ready to use..."));
 client.on('error',err=> console.log('Redis Client Error ',err));
 client.on("end", () => console.log("disconnected from redis...."))
 
-await client.connect();
+ client.connect();
 
 module.exports={
     initRedis:client

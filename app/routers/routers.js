@@ -1,4 +1,5 @@
 const {  UserAuthRouter } = require('./Auth/user.router');
+const { AdminMangerRouter } = require('./admin/Manager/manager');
 const {AdminRouter} = require('./admin/admin.router');
 const { SearchRouter } = require('./search/search.router');
 const {shopRouter} = require('./shop/shop.router');
@@ -10,5 +11,5 @@ router.use(shopRouter);
 router.use(AdminRouter);
 router.use(shopRouter);
 router.use(SearchRouter);
-
+router.use("/manager",AdminMangerRouter);
 module.exports=router;
