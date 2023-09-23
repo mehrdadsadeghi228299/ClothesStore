@@ -5,7 +5,13 @@ const AdminSchema=new mongoose.Schema({
     mobile:{type:Number,require:true, unique:true},
     email:{type:String,require:true,unique:true},
     password:{type:String ,require:true},
-    otp:{type:Object ,default:{
+    isEmail:{type:Boolean,default:false},
+    isMobile:{type:Boolean,default:false},
+    otpMobile:{type:Object ,default:{
+        code:11111,
+        expireIn:0
+    } },
+    otpEmail:{type:Object ,default:{
         code:11111,
         expireIn:0
     } }
