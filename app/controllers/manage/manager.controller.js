@@ -257,36 +257,36 @@ class AdminManager extends Controller {
             var location = '/AdminManager/changePasswordAdmin';
 
             const { username,newPass,code} = req.body;
-            const {check:resultSearching,isDelete }= checkIsAdminExistOrDelete(username)
-            if (resultSearching) {
-               return res.status(HttpStatus.BAD_REQUEST).json({
-                    statusCodes: HttpStatus.BAD_REQUEST,
-                    where: location,
-                    message: "user name is not exist "
-                });
-            }
-            if(isDelete){
+            this.SendsCodeAdmin();
+            const updateUserCode = await AdminModel.findOne({userName:username});
+            if(!updateUserCode.Active){
                 return res.status(HttpStatus.BAD_REQUEST).json({
                     statusCodes: HttpStatus.BAD_REQUEST,
                     where: location,
                     message: " user name is delete before "
                 });
             }
-            this.SendsCodeAdmin();
-            const updateUserCode = await AdminModel.findOne({userName:username});
             if(updateUserCode.otpMobile.code.include(code)){
                 const pass = newHashPass(newPass);
                 const updateAdmin = await AdminModel.findById({_id:updateUserCode._id},{
                     $set:{password:pass}
                 });
+                const token=SignRefreshToken(updateAdmin._id)
                 return res.status(HttpStatus.ACCEPTED).json({
                     statusCodes: HttpStatus.ACCEPTED,
                     where: location,
-                    message: "pass change "
+                    message: "pass change ",
+                    refreshToken:token
                 });
             }
-        
-
+            else  {
+               return res.status(HttpStatus.BAD_REQUEST).json({
+                    statusCodes: HttpStatus.BAD_REQUEST,
+                    where: location,
+                    message: "user name is not exist Or some thing have problem"
+                });
+            }
+                
         } catch (error) {
             next(error)
         }
