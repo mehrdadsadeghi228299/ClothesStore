@@ -7,6 +7,7 @@ const AdminSchema=new mongoose.Schema({
     password:{type:String ,require:true},
     isEmail:{type:Boolean,default:false},
     isMobile:{type:Boolean,default:false},
+    Active:{type:Boolean,default:true},
     otpMobile:{type:Object ,default:{
         code:11111,
         expireIn:0

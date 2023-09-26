@@ -61,12 +61,7 @@ class UserControllerClass extends Controller{
                 Data:newUser
             });
        } catch (error) {
-        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-            statusCodes:HttpStatus.INTERNAL_SERVER_ERROR,
-            where:'/UserControllerClass/signupUser',
-            Modified:false,
-            Error:"catch"+error
-        });
+       next(error);
       }
     } 
        
@@ -134,31 +129,30 @@ class UserControllerClass extends Controller{
 
             }
            } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-                statusCodes:HttpStatus.INTERNAL_SERVER_ERROR,
-                where:'/UserControllerClass/checkIsModifyAndGetCodeAccount',
-                Modified:false,
-                Error:error
-            });
+            next(error)
         }
        }
     
     async CheckRefreshTokenAndCreatedAccessToken(req,res,next){
-        const {refreshToken ,mobile}= req.body;
-        const newUser=await UserModel.findOne({mobile:mobile});
-        if (refreshToken == null) return res.sendStatus(HttpStatus.UNAUTHORIZED)
-        extractRefreshTokenAsRedis=initRedis.get(`${newUser.mobile}`)
-        if (!refreshToken.includes(extractRefreshTokenAsRedis)) return res.sendStatus(HttpStatus.UNAUTHORIZED)
-       
-        return CreatedRefreshIfJWT(refreshToken,KEYREFRESH,{id:newUser._id,Username:newUser.userName},KEYTOKEN)
-      
+        try {
+            const {refreshToken ,mobile}= req.body;
+            const newUser=await UserModel.findOne({mobile:mobile});
+            if (refreshToken == null) return res.sendStatus(HttpStatus.UNAUTHORIZED)
+            extractRefreshTokenAsRedis=initRedis.get(`${newUser.mobile}`)
+            if (!refreshToken.includes(extractRefreshTokenAsRedis)) return res.sendStatus(HttpStatus.UNAUTHORIZED)
+           
+            return CreatedRefreshIfJWT(refreshToken,KEYREFRESH,{id:newUser._id,Username:newUser.userName},KEYTOKEN)
+          
+        } catch (error) {
+            next(error)
+        }
 
 
     }
     CheckAccessToken(req,res){
         const authHeader = req.headers['authorization']
         const token = authHeader && authHeader.split(' ')[1]
-        if (token == null) return res.sendStatus(401)        
+        if (token == null) return res.sendStatus(HttpStatus.UNAUTHORIZED)        
         checkAccessesToken(token,KEYTOKEN)
         return true
     }
