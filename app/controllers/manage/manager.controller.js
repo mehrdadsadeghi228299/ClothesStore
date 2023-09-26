@@ -275,7 +275,7 @@ class AdminManager extends Controller {
                 return res.status(HttpStatus.ACCEPTED).json({
                     statusCodes: HttpStatus.ACCEPTED,
                     where: location,
-                    message: "pass change ",
+                    message: "pass changed ",
                     refreshToken:token
                 });
             }

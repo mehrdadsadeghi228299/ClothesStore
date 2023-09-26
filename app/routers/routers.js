@@ -1,4 +1,4 @@
-const {  UserAuthRouter } = require('./Auth/user.router');
+const { UserAuthRouter } = require('./Auth/User/user.router');
 const { AdminMangerRouter } = require('./admin/Manager/manager');
 const {AdminRouter} = require('./admin/admin.router');
 const { SearchRouter } = require('./search/search.router');
