@@ -6,18 +6,8 @@ const {initRedis:redisClient} = require('../utils/initRedis');
 const JWT = require("jsonwebtoken");
 const createHttpError = require("http-errors");
 
-function CheckAccessToken(req, res) {
-        const authHeader = req.headers['authorization']
-        const token = authHeader && authHeader.split(' ')[1]
 
-        if (token == null) return res.sendStatus(HttpStatus.UNAUTHORIZED)
-        checkAccessesToken(token, KEYTOKEN)
-        return true
 
-    }
-function checkcompre(ref,old){
-    return JWT.verify(ref,old)
-}
 function SignAccessToken(userId) {
     return new Promise(async (resolve, reject) => {
         const user = await AdminModel.findById(userId)
@@ -69,6 +59,5 @@ module.exports = {
     VerifyRefreshToken,
     SignRefreshToken,
     SignAccessToken,
-    checkcompre
 
 }

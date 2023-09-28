@@ -10,7 +10,7 @@ function getToken(headers) {
     "حساب کاربری شناسایی نشد وارد حساب کاربری خود شوید"
   );
 }
-function VerifyAccessToken(req, res, next) {
+function VerifyAdminAccessToken(req, res, next) {
   try {
     const token = getToken(req.headers);
     JWT.verify(token, ACCESS_TOKEN_SECRET_KEY, async (err, payload) => {
@@ -34,6 +34,6 @@ function VerifyAccessToken(req, res, next) {
 }
 
 module.exports = {
-    VerifyAccessToken,
+    VerifyAdminAccessToken,
     getToken,
   };
