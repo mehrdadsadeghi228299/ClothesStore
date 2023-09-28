@@ -8,7 +8,9 @@ const { sendingEmailService } = require('../../utils/email');
 const { StatusCodes: HttpStatus } = require("http-status-codes");
 const adminModel = require('../../models/admin.model');
 const { compare } = require('bcrypt');
-const { SignAccessToken, SignRefreshToken, VerifyRefreshToken, checkcompre } = require('../../middlewares/checkAuth');
+const { SignAccessToken, SignRefreshToken, VerifyRefreshToken } = require('../../middlewares/checkAuth');
+const createHttpError = require('http-errors');
+const { check, validationResult } = require('express-validator');
 const KEYTOKEN="6d65687264616473616465676869";
 const KEYREFRESH="6865646e686d6a672c6a632c63686b2c6b6a2c6b6b2c686b2e";
 
@@ -20,16 +22,16 @@ class AdminManager extends Controller {
 
             var location = '/AdminManager/addAdmin';
             const errorValidator = validationResult(req);
-            if (!isEmpty(errorValidator)) {
+            if (!errorValidator.isEmpty()) {
                 res.status(HttpStatus.BAD_REQUEST).json({
-                    statusCodes: HttpStatus.BAD_REQUEST,
+                    statusCodes: HttpStatus.INTERNAL_SERVER_ERROR,
                     where: location,
-                    message: errorValidator
+                    validator_Message: errorValidator
                 });
             }
             const { userName, password, mobile, email } = req.body;
-            const {check:resultSearching,isDelete }= checkIsAdminExistOrDelete(userName)
-            if (!resultSearching) {
+            const resultSearching= await AdminModel.findOne({userName:userName});
+            if (resultSearching) {
                return res.status(HttpStatus.BAD_REQUEST).json({
                     statusCodes: HttpStatus.BAD_REQUEST,
                     where: location,
@@ -53,13 +55,46 @@ class AdminManager extends Controller {
             next(error)
         }
     }
+    async SendsMobileCodeAdmin(req, res, next) {
+        try {
+            var location = '/AdminManager/SendsCodeAdmin';
+            const code = codeERSali;
+            const { username } = req.body;
+            const {check:resultSearching,isDelete }= this.checkIsAdminExistOrDelete(userName)
+            if (resultSearching) {
+               return res.status(HttpStatus.BAD_REQUEST).json({
+                    statusCodes: HttpStatus.BAD_REQUEST,
+                    where: location,
+                    message: "user name is not exist "
+                });
+            }
+            if(isDelete){
+                return res.status(HttpStatus.BAD_REQUEST).json({
+                    statusCodes: HttpStatus.BAD_REQUEST,
+                    where: location,
+                    message: " user name is delete before "
+                });
+            }
 
-     async verifyMobileAdmin(req, res, next) {
+            const updateModel = AdminModel.findOneAndUpdate({userName:username},{
+                $set:{otpMobile:code}
+            });
+            res.status(HttpStatus.BAD_REQUEST).json({
+                statusCodes: HttpStatus.BAD_REQUEST,
+                where: location,
+                message: `the code is ${code} for verify mobile`
+            });
+        } catch (error) {
+            next(error)
+        }
+    }
+
+     async getVerifyMobileAdmin(req, res, next) {
         try {
             var location = '/AdminManager/verifyMobileAdmin';
             const timeNow=253
             const { username ,userCode} = req.body;
-            const {check:resultSearching,isDelete }= checkIsAdminExistOrDelete(username)
+            const {check:resultSearching,isDelete }= this.checkIsAdminExistOrDelete(userName)
             if (resultSearching) {
                return res.status(HttpStatus.BAD_REQUEST).json({
                     statusCodes: HttpStatus.BAD_REQUEST,
@@ -74,34 +109,36 @@ class AdminManager extends Controller {
                     message: "user name is delete before "
                 });
             } 
-            if(resultSearching.isEmail){
+            if(resultSearching.isMobile){
                 res.status(HttpStatus.BAD_REQUEST).json({
                     statusCodes: HttpStatus.OK,
                     where: location,
                     message: " email is verify before"
                 });
-            } else {
-                if(resultSearching.otpMobile.expireIn>timeNow){
-                    resultSearching.otpMobile.code.include(userCode);
-                    await AdminModel.findByIdAndUpdate({userName:username},{
+            } 
+            if(resultSearching.otpMobile.code.include(userCode)){
+                    await AdminModel.findByIdAndUpdate({_id:resultSearching._id},{
                         isMobile:true
                     });
-
-                }
+                    res.status(HttpStatus.BAD_REQUEST).json({
+                        statusCodes: HttpStatus.OK,
+                        where: location,
+                        message: "verify  email is sucess "
+                    });
+            };
                 
-                this.SendsCodeAdmin();
 
-            }
+    
         } catch (error) {
             next(error)
         }
     }
-    async verifyEmailAdmin(req, res, next) {
+    async SendsVerifyEmailAdmin(req, res, next) {
         try {
             var location = '/AdminManager/addAdmin';
 
             const { username } = req.body;
-            const {check:resultSearching,isDelete }= checkIsAdminExistOrDelete(username)
+            const {check:resultSearching,isDelete }= this.checkIsAdminExistOrDelete(userName)
             if (resultSearching) {
                return res.status(HttpStatus.BAD_REQUEST).json({
                     statusCodes: HttpStatus.BAD_REQUEST,
@@ -128,8 +165,43 @@ class AdminManager extends Controller {
                 where: location ,
                 message: "the code is sends to emails "
             });
+
         } catch (error) {
             next(error)
+        }
+    }
+
+    async getVerifyEmailCode(req,res,next){
+        var location = '/AdminManager/addAdmin';
+
+        const { username ,codeEmails} = req.body;
+        const {check:resultSearching,isDelete }= this.checkIsAdminExistOrDelete(userName)
+        if (resultSearching) {
+            return res.status(HttpStatus.NOT_ACCEPTABLE).json({
+                 statusCodes: HttpStatus.NOT_ACCEPTABLE,
+                 where: location,
+                 message: "user name is not exist "
+             });
+         }
+         if(isDelete){
+             return res.status(HttpStatus.NOT_ACCEPTABLE).json({
+                 statusCodes: HttpStatus.NOT_ACCEPTABLE,
+                 where: location,
+                 message: "user name is delete before "
+             });
+         }
+
+        if(!codeEmails) createHttpError.NotImplemented('code receive can Not br empty ');
+        if(resultSearching.code.include(codeEmails)){
+
+            const resultCodeEmail=await AdminModel.findByIdAndUpdate({_id:resultSearching._id},
+                    {$set:{isEmail:true}
+                });
+            return res.status(HttpStatus.NOT_ACCEPTABLE).json({
+                statusCodes: HttpStatus.NOT_ACCEPTABLE,
+                where: location,
+                message: " Email is Verify thanks  "+resultCodeEmail._id
+            });
         }
     }
     async DeleteAdmin(req, res, next) {
@@ -137,7 +209,7 @@ class AdminManager extends Controller {
             var location = '/AdminManager/DeleteAdmin';
 
             const {id}=req.body;
-            const {check:resultSearching,isDelete }= checkIsAdminExistOrDelete(username)
+            const {check:resultSearching,isDelete }= this.checkIsAdminExistOrDelete(userName)
             if (resultSearching) {
                return res.status(HttpStatus.BAD_REQUEST).json({
                     statusCodes: HttpStatus.BAD_REQUEST,
@@ -177,7 +249,7 @@ class AdminManager extends Controller {
             var location = '/AdminManager/VerifyAdmin';
 
             const { username } = req.body;
-            const {check:resultSearching,isDelete }= checkIsAdminExistOrDelete(username)
+            const {check:resultSearching,isDelete }= this.checkIsAdminExistOrDelete(userName)
             if (resultSearching) {
                return res.status(HttpStatus.BAD_REQUEST).json({
                     statusCodes: HttpStatus.BAD_REQUEST,
@@ -195,7 +267,11 @@ class AdminManager extends Controller {
          
             if (resultSearching.isEmail) {
                 if (resultSearching.isMobile) {
-                        return true
+                    res.status(HttpStatus.BAD_REQUEST).json({
+                        statusCodes: HttpStatus.BAD_REQUEST,
+                        where: location,
+                        message: "email And mobile Are Verify ."
+                    });
                 }else{
                     res.status(HttpStatus.BAD_REQUEST).json({
                         statusCodes: HttpStatus.BAD_REQUEST,
@@ -216,15 +292,15 @@ class AdminManager extends Controller {
             var location = '/AdminManager/loginAdmin';
 
             const {username,pass}=req.body;
-            const {check:resultSearching,isDelete }= checkIsAdminExistOrDelete(username)
-            if (resultSearching) {
+            const resultSearching = await AdminModel.findOne({userName:username});
+            if (!resultSearching) {
                return res.status(HttpStatus.NOT_ACCEPTABLE).json({
                     statusCodes: HttpStatus.NOT_ACCEPTABLE,
                     where: location,
                     message: "user name is not exist "
                 });
             }
-            if(isDelete){
+            if(!resultSearching.Active){
                 return res.status(HttpStatus.NOT_ACCEPTABLE).json({
                     statusCodes: HttpStatus.NOT_ACCEPTABLE,
                     where: location,
@@ -314,44 +390,15 @@ class AdminManager extends Controller {
             next(error)
         }
     }
-   async SendsCodeAdmin(req, res, next) {
-        try {
-            var location = '/AdminManager/SendsCodeAdmin';
-            const code = codeERSali;
-            const { username } = req.body;
-            const {check:resultSearching,isDelete }= checkIsAdminExistOrDelete(username)
-            if (resultSearching) {
-               return res.status(HttpStatus.BAD_REQUEST).json({
-                    statusCodes: HttpStatus.BAD_REQUEST,
-                    where: location,
-                    message: "user name is not exist "
-                });
-            }
-            if(isDelete){
-                return res.status(HttpStatus.BAD_REQUEST).json({
-                    statusCodes: HttpStatus.BAD_REQUEST,
-                    where: location,
-                    message: " user name is delete before "
-                });
-            }
-            const updateModel = AdminModel.findOneAndUpdate({userName:username},{
-                $set:{otpMobile:code}
-            });
-            res.status(HttpStatus.BAD_REQUEST).json({
-                statusCodes: HttpStatus.BAD_REQUEST,
-                where: location,
-                message: `the code is ${code} for verify mobile`
-            });
-        } catch (error) {
+  
+    async checkIsAdminExistOrDelete(username){
+        try{
+            const resultSearching = await AdminModel.findOne({userName:username});
+            return resultSearching
+        }catch(error){
             next(error)
         }
-    }
-
-    async checkIsAdminExistOrDelete(username){
-        
-        const check = await AdminModel.findOne({userName:username});
-        const isDelete=check.Active;
-        return check,isDelete
+ 
         
     }
 }
