@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt');
 const empty = require('is-empty');
 const jwt = require("jsonwebtoken");
 const ObjectId = require('mongoose').Types.ObjectId;
-
+const gen='4420d1918bbcf7686defdf9560bb5087d20076de5f77b7cb4c3b40bf46ec428b';
+const originalHash = '$2a$10$7h/0SQ4FXRG5eX3602o3/.aO.RYkxKuhGkzvIXHLUiMJlFt1P.6Pe';
 
 async function CheckExistUser(username) {
     const exist = await UserModel.findOne({ userName: username })
@@ -19,7 +20,7 @@ async function CheckExistUser(username) {
 }
 
 function newGenSalt() {
-    return newPass = bcrypt.genSaltSync(12)
+    return newPass = bcrypt.genSaltSync(8)
 
 }
 function newHashPass(password) {

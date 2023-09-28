@@ -7,13 +7,13 @@ const nodemailer = require('nodemailer');
 const { sendingEmailService } = require('../../utils/email');
 const { StatusCodes: HttpStatus } = require("http-status-codes");
 const adminModel = require('../../models/admin.model');
-const { compare } = require('bcrypt');
 const { SignAccessToken, SignRefreshToken, VerifyRefreshToken } = require('../../middlewares/checkAuth');
 const createHttpError = require('http-errors');
 const { check, validationResult } = require('express-validator');
 const KEYTOKEN="6d65687264616473616465676869";
 const KEYREFRESH="6865646e686d6a672c6a632c63686b2c6b6a2c6b6b2c686b2e";
 
+const bcrypt = require('bcrypt');
 
 class AdminManager extends Controller {
 
@@ -40,13 +40,13 @@ class AdminManager extends Controller {
             }
 
             const hashPass = newHashPass(password);
-            const resultAddingAdmin = AdminModel.create({ userName: userName, mobile: mobile, email: email, password: hashPass });
+            const resultAddingAdmin = (await AdminModel.create({ userName: userName, mobile: mobile, email: email, password: hashPass })).save();
             sendingEmailService("merhrdadsadeghi769@gamil.com", "12462345635", "merhrdadsadeghi769@gamil.com", "mehrdadsadeghi79@outlook.com", "admin was create with ", resultAddingAdmin);
             
             return res.status(HttpStatus.OK).json({
                 statusCodes: HttpStatus.OK,
                 where: location,
-                user: resultAddingAdmin
+                user: "Admin was Create "+resultAddingAdmin
 
             });
 
@@ -292,7 +292,10 @@ class AdminManager extends Controller {
             var location = '/AdminManager/loginAdmin';
 
             const {username,pass}=req.body;
+            console.log("here 1");
             const resultSearching = await AdminModel.findOne({userName:username});
+            console.log("here 2");
+
             if (!resultSearching) {
                return res.status(HttpStatus.NOT_ACCEPTABLE).json({
                     statusCodes: HttpStatus.NOT_ACCEPTABLE,
@@ -307,9 +310,17 @@ class AdminManager extends Controller {
                     message: "user name is delete before "
                 });
             }
-            const comparePass = compareHashPass( resultSearching.password,pass);
+            console.log("here 3");
+            const pa= resultSearching.password
+
+            console.log(""+bcrypt.compareSync(pa, pass)
+            ); 
+            const comparePass=compareHashPass(pa,pass);
+           console.log(comparePass);
+            console.log(pass);
+            console.log(resultSearching.password);
             if(comparePass){
-             
+                console.log('h5')
                 const accessToken = await SignAccessToken(resultSearching._id)
                 const refreshToken = await SignRefreshToken(resultSearching._id);
                 return res.status(HttpStatus.OK).json({
@@ -323,6 +334,13 @@ class AdminManager extends Controller {
 
              
             }
+            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                statusCodes:HttpStatus.INTERNAL_SERVER_ERROR,
+                where:location,
+                Data:"login is not Success we have Issus:"
+            });
+              
+            
         } catch (error) {
             next(error)
         }
