@@ -3,33 +3,31 @@ const { StatusCodes: HttpStatus } = require("http-status-code");
 const bcrypt = require('bcrypt');
 const empty = require('is-empty');
 const jwt = require("jsonwebtoken");
+const createHttpError = require("http-errors");
 const ObjectId = require('mongoose').Types.ObjectId;
-const gen='4420d1918bbcf7686defdf9560bb5087d20076de5f77b7cb4c3b40bf46ec428b';
+const gen = '4420d1918bbcf7686defdf9560bb5087d20076de5f77b7cb4c3b40bf46ec428b';
 const originalHash = '$2a$10$7h/0SQ4FXRG5eX3602o3/.aO.RYkxKuhGkzvIXHLUiMJlFt1P.6Pe';
+const t =  '$2a$10$nN.FUHQxv4Yf3sTMp4W95uKmSV9wA.5yYpAMVnqfrHKb/zXuVh4VS';
 
 async function CheckExistUser(username) {
     const exist = await UserModel.findOne({ userName: username })
     if (empty(exist)) {
-        return res.status(HttpStatus.BAD_REQUEST).json({
-            statusCodes: HttpStatus.BAD_REQUEST,
-            where: '/UserControllerClass/signupUser',
-            message: errorValidator
-        });
+      createHttpError.InternalServerError("not Exists")
     }
     return false
 }
 
 function newGenSalt() {
-    return newPass = bcrypt.genSaltSync(8)
-
+    const newPass = bcrypt.genSaltSync(10)
+    return newPass
 }
 function newHashPass(password) {
-    return newPass = bcrypt.hashSync(password, newGenSalt())
-
+     const newPass = bcrypt.hashSync(password, newGenSalt())
+     return newPass
 }
 function compareHashPass(password, userInter) {
-    return newPass = bcrypt.compareSync(password, userInter)
-
+    const newPass = bcrypt.compareSync(password, userInter)
+   return newPass
 }
 function codeERSali() {
     return Math.round(Math.random() * 100000)

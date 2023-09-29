@@ -6,14 +6,15 @@ const router=require('express').Router();
 
 
 router.post("/AddAdmin",validatorAdmin,AdminManager.addAdmin);
-router.put('/verifyAdmin',VerifyAdminAccessToken,AdminManager.VerifyAdmin);
-router.put('/SendsMobileCodeAdmin',VerifyAdminAccessToken,AdminManager.SendsMobileCodeAdmin);
+router.get('/verifyAdmin',VerifyAdminAccessToken,AdminManager.VerifyAdmin);
+router.get('/SendsMobileCodeAdmin',VerifyAdminAccessToken,AdminManager.SendsMobileCodeAdmin);
 router.put('/getVerifyMobileAdmin',VerifyAdminAccessToken,AdminManager.getVerifyMobileAdmin);
-router.put('/SendsVerifyEmailAdmin',VerifyAdminAccessToken,AdminManager.SendsVerifyEmailAdmin);
+router.get('/SendsVerifyEmailAdmin',VerifyAdminAccessToken,AdminManager.SendsVerifyEmailAdmin);
 router.put('/getVerifyEmailCode',VerifyAdminAccessToken,AdminManager.getVerifyEmailCode);
 router.delete("/DeleteAdmin",VerifyAdminAccessToken,AdminManager.DeleteAdmin);
 router.post('/loginAdmin',AdminManager.loginAdmin);
-router.put('/changePasswordAdmin',VerifyAdminAccessToken,AdminManager.changePasswordAdmin);
+router.put('/requestChangePasswordAdmin',AdminManager.requestChangePasswordAdmin);
+router.put('/changePasswordAdmin',AdminManager.changePasswordAdmin);
 
 
 module.exports={

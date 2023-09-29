@@ -84,7 +84,7 @@ module.exports=class Application{
     async createdServer(){
         const server=http.createServer(this.#app);
         server.listen(this.#PORT,()=>{
-            console.log(`server run on port http://localhost:${this.#PORT}`);
+            console.log(`\n server run on port http://localhost:${this.#PORT}`);
  
         });
     }

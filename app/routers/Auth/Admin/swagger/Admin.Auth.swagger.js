@@ -23,43 +23,19 @@
  *                password:
  *                    type: string
  *                    description: the user mobile for signup/signup
- *         SendsMobileCodeAdmin:
- *            type: object       
- *            required:
- *                -   username
- *            properties:
- *                username:
- *                    type: string
- *                    description: the username  for SendsMobileCodeAdmin
  *         getVerifyMobileAdmin:
  *            type: object
  *            required:
- *                -   username
  *                -   userCode
  *            properties:
- *                username:
- *                    type: string
- *                    description: the user id for checkIsModifyAndSendCodeAccount
  *                userCode:
  *                    type: string
  *                    description: the user id for checkIsModifyAndSendCodeAccount
- *         SendsVerifyEmailAdmin:
- *            type: object       
- *            required:
- *                -   username
- *            properties:
- *                username:
- *                    type: string
- *                    description: the username  for SendsVerifyEmailAdmin
  *         getVerifyEmailCode:
  *            type: object
  *            required:
- *                -   username
  *                -   codeEmails
  *            properties:
- *                username:
- *                    type: string
- *                    description: the Admin for getVerifyEmailCode
  *                codeEmails:
  *                    type: string
  *                    description: the Admin for getVerifyEmailCode
@@ -71,14 +47,6 @@
  *                id:
  *                    type: string
  *                    description: the Admin id for DeleteAdmin
- *         VerifyAdmin:
- *            type: object
- *            required:
- *                -   username
- *            properties:
- *                username :
- *                    type: string
- *                    description: the user id for checkIsModifyAndSendCodeAccount
  *         loginAdmin:
  *            type: object
  *            required:
@@ -87,10 +55,18 @@
  *            properties:
  *                username :
  *                    type: string
- *                    description: the user mobile for login
+ *                    description: the Admin mobile for login
  *                pass :
  *                    type: string
  *                    description: received code from login 
+ *         requestChangePasswordAdmin:
+ *            type: object
+ *            required:
+ *                -   username
+ *            properties:
+ *                username :
+ *                    type: string
+ *                    description: the user id for requestChangePasswordAdmin
  *         changePasswordAdmin:
  *            type: object
  *            required:
@@ -174,19 +150,10 @@
 /**
  * @swagger
  *  /manager/SendsMobileCodeAdmin:
- *      put:
+ *      get:
  *          tags: [Admin-Authentication]
  *          summary: SendsMobileCodeAdmin in Admin-Authentication with phone number
  *          description: Admin panel
- *          requestBody:
- *              required: true
- *              content: 
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/AdminAuthSchemas/SendsMobileCodeAdmin'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/AdminAuthSchemas/SendsMobileCodeAdmin'
  *          responses:
  *              201: 
  *                  description: Success
@@ -227,19 +194,10 @@
 /**
  * @swagger
  *  /manager/SendsVerifyEmailAdmin:
- *      put:
+ *      get:
  *          tags: [Admin-Authentication]
  *          summary: SendsVerifyEmailAdmin user in Admin-Authentication 
  *          description: Admin panel
- *          requestBody:
- *              required: true
- *              content: 
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/AdminAuthSchemas/SendsVerifyEmailAdmin'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/AdminAuthSchemas/SendsVerifyEmailAdmin'
  *          responses:
  *              201: 
  *                  description: Success
@@ -280,19 +238,10 @@
 /**
  * @swagger
  *  /manager/VerifyAdmin:
- *      put:
+ *      get:
  *          tags: [Admin-Authentication]
  *          summary: VerifyAdmin in Admin-Authentication 
  *          description: Admin panel
- *          requestBody:
- *              required: true
- *              content: 
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/AdminAuthSchemas/VerifyAdmin'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/AdminAuthSchemas/VerifyAdmin'
  *          responses:
  *              201: 
  *                  description: Success
@@ -304,6 +253,59 @@
  *                  description: Internal Server Error 
  */
 
+/**
+ * @swagger
+ *  /manager/requestChangePasswordAdmin:
+ *      put:
+ *          tags: [Admin-Authentication]
+ *          summary: getVerifyEmailCode in Admin-Authentication 
+ *          description: Admin panel
+ *          requestBody:
+ *              required: true
+ *              content: 
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/AdminAuthSchemas/requestChangePasswordAdmin'
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/AdminAuthSchemas/requestChangePasswordAdmin'
+ *          responses:
+ *              201: 
+ *                  description: Success
+ *              400: 
+ *                  description: Bad Request
+ *              401: 
+ *                  description: Unauthorization
+ *              500: 
+ *                  description: Internal Server Error 
+ */
+
+/**
+ * @swagger
+ *  /manager/changePasswordAdmin:
+ *      put:
+ *          tags : [Admin-Authentication]
+ *          summary: changePasswordAdmin in admin-panel 
+ *          description: Admin panel 
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/AdminAuthSchemas/changePasswordAdmin'
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/AdminAuthSchemas/changePasswordAdmin'
+ *          responses:
+ *              201: 
+ *                  description: Success
+ *              400: 
+ *                  description: Bad Request
+ *              401: 
+ *                  description: Unauthorization
+ *              500: 
+ *                  description: Internal Server Error 
+ */
 
 /**
  * @swagger
@@ -331,29 +333,4 @@
  *              500: 
  *                  description: Internal Server Error 
  */
-/**
- * @swagger
- *  /manager/changePasswordAdmin:
- *      put:
- *          tags : [User-Authentication]
- *          summary: changePasswordAdmin in admin-panel 
- *          description: Admin panel 
- *          requestBody:
- *              required: true
- *              content:
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/UserAuthSchemas/changePasswordAdmin'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/UserAuthSchemas/changePasswordAdmin'
- *          responses:
- *              201: 
- *                  description: Success
- *              400: 
- *                  description: Bad Request
- *              401: 
- *                  description: Unauthorization
- *              500: 
- *                  description: Internal Server Error 
- */
+

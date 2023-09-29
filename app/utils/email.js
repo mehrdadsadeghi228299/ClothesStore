@@ -1,22 +1,23 @@
 const nodemailer = require('nodemailer');
 
-function sendingEmailService(rootEmail,rootEmailPass,SenderEmail,receiverEmail,subject,messageText){
+function sendingEmailService(SenderEmail,receiverEmail,subject,messageText){
  try {
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: rootEmail,
-          pass: rootEmailPass
-        }
-      });
-
+      var transport = nodemailer.createTransport({
+          host: "sandbox.smtp.mailtrap.io",
+          port: 2525,
+          auth: {
+            user: "34e6bc02281a4e",
+            pass: "eeaecc712e43d7"
+          }
+        });
+  
       var mailOptions = {
         from:SenderEmail ,
         to: receiverEmail,
         subject:subject ,
         text: messageText
       };
-      transporter.sendMail(mailOptions, function(error, info){
+      transport.sendMail(mailOptions, function(error, info){
         if (error) {
             return action={'Error: ' : error};       
          } else {
