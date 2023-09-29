@@ -39,14 +39,6 @@
  *                codeEmails:
  *                    type: string
  *                    description: the Admin for getVerifyEmailCode
- *         DeleteAdmin:
- *            type: object
- *            required:
- *                -  id
- *            properties:
- *                id:
- *                    type: string
- *                    description: the Admin id for DeleteAdmin
  *         loginAdmin:
  *            type: object
  *            required:
@@ -312,17 +304,8 @@
  *  /manager/DeleteAdmin:
  *      delete:
  *          tags: [Admin-Authentication]
- *          summary: DeleteAdmin in Admin-Authentication 
+ *          summary: Delete Admin 
  *          description: Admin panel
- *          requestBody:
- *              required: true
- *              content: 
- *                  application/x-www-form-urlencoded:
- *                      schema:
- *                          $ref: '#/components/AdminAuthSchemas/DeleteAdmin'
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/AdminAuthSchemas/DeleteAdmin'
  *          responses:
  *              201: 
  *                  description: Success
@@ -334,3 +317,20 @@
  *                  description: Internal Server Error 
  */
 
+/**
+ * @swagger
+ *  /manager/logout:
+ *      get:
+ *          tags: [Admin-Authentication]
+ *          summary: LogOut
+ *          description: LogOut
+ *          responses:
+ *              201: 
+ *                  description: Success
+ *              400: 
+ *                  description: Bad Request
+ *              401: 
+ *                  description: Unauthorization
+ *              500: 
+ *                  description: Internal Server Error 
+ */

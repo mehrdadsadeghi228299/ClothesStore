@@ -18,12 +18,12 @@ function VerifyAdminAccessToken(req, res, next) {
       try {
         if (err) throw createHttpError.Unauthorized("وارد حساب کاربری خود شوید");
         const { mobile } = payload || {};
-        const user = await AdminModel.findOne(
+        const Admin = await AdminModel.findOne(
           { mobile },
           { password: 0, otp: 0 }
         );
-        if (!user) throw createHttpError.Unauthorized( "Admin Account is not found ");
-        req.user = user;
+        if (!Admin) throw createHttpError.Unauthorized( "Admin Account is not found ");
+        req.admin = Admin;
         return next();
       } catch (error) {
         next(error);

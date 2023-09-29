@@ -15,6 +15,7 @@ router.delete("/DeleteAdmin",VerifyAdminAccessToken,AdminManager.DeleteAdmin);
 router.post('/loginAdmin',AdminManager.loginAdmin);
 router.put('/requestChangePasswordAdmin',AdminManager.requestChangePasswordAdmin);
 router.put('/changePasswordAdmin',AdminManager.changePasswordAdmin);
+router.get('/logout',VerifyAdminAccessToken,AdminManager.logOut);
 
 
 module.exports={
