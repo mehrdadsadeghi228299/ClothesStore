@@ -122,7 +122,6 @@ class WishListClass extends Controller {
             const ListProduct = CheckBeForAdding.ListProduct;
             BasketProductShop.getItemsFromWishlist(id,ListProduct)
           
-
         } catch (error) {
             next(error)
         }
