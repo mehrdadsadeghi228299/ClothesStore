@@ -25,7 +25,6 @@ class WishListClass extends Controller {
                 message: resultQuery
             });
 
-
         } catch (error) {
             next(error)
         }
@@ -41,24 +40,22 @@ class WishListClass extends Controller {
             if(!checkProducts) createHttpError.NotImplemented('id Products is not Exist in the products ');
             const CheckBeForAdding = await WishListModel.findOne({user_id:id});
             const ListProduct = CheckBeForAdding.ListProduct;
+            var listTempers=[];
             if(ListProduct){
                for (let index = 0; index <ListProduct.length; index++) {
-               if(ListProduct[index]==id_products){
-                return res.status(HttpStatus.NOT_IMPLEMENTED).json({
-                    statusCodes: HttpStatus.NOT_IMPLEMENTED,
-                    where: location,
-                    message: " products before Adding to "
-                });
-               }
+                    if(ListProduct[index]!=id_products){
+                    listTempers.push(ListProduct[index]);
+
+                    }
                } 
             }else{
             const resultQuery = await WishListModel.findOneAndUpdate({user_id:id},{
-                '$push':{ListProduct:id_products}
+                '$set':{ListProduct:listTempers}
             });
             return res.status(HttpStatus.OK).json({
                 statusCodes: HttpStatus.OK,
                 where: location,
-                message: resultQuery
+                message: "the products Delete : "
             });
             }
 
