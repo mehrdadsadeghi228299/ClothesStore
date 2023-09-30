@@ -3,6 +3,7 @@ const { WishListModel } = require("../../models/wishList.model");
 const Controller = require("../base.Controller");
 const { StatusCodes: HttpStatus } = require("http-status-codes");
 const { ProductModel } = require("../../models/products.model");
+const { BasketProductShop } = require("../basket/basket.controller");
 
 class WishListClass extends Controller {
 
@@ -112,8 +113,19 @@ class WishListClass extends Controller {
         }
     } 
 
-    ChoseProductsToBasket(req,res,next){
+    async SendsProductsToBasket(req,res,next){
+        try {
+            var location='WishListClass/ChoseProductsToBasket';
+            const {id} = req.user;
+            if(!checkProducts) createHttpError.NotImplemented('id Products is not Exist in the products ');
+            const CheckBeForAdding = await WishListModel.findOne({user_id:id});
+            const ListProduct = CheckBeForAdding.ListProduct;
+            BasketProductShop.getItemsFromWishlist(id,ListProduct)
+          
 
+        } catch (error) {
+            next(error)
+        }
     }
    
 }

@@ -4,6 +4,7 @@ const { theFormOfAnswer, CheckExistUser } = require("../../utils/utils");
 const { StatusCodes: HttpStatus } = require("http-status-codes");
 const { Controller } = require("../base.Controller");
 const { models } = require("mongoose");
+const createHttpError = require("http-errors");
 
 
 class BasketProductShop extends Controller {
@@ -66,7 +67,7 @@ class BasketProductShop extends Controller {
             }else{
                 const resultAddingItemsInBasket = await UserModel.findByIdAndUpdate(id_user, {
                     '$push': { 'basket.$productId': productId, "basket.countItems": countItems }
-    
+
                 });
          
                 if (resultAddingItemsInBasket.length <1 ) {
@@ -159,6 +160,34 @@ class BasketProductShop extends Controller {
         }); 
         return point 
 
+    }
+   async getItemsFromWishlist(req,res,next ,id=null,ListProduct=[]){
+        try {
+            
+        const id_user = req.user._id ;
+        if(id_user != id){
+          return createHttpError.NotAcceptable("user not the same ");
+
+        }
+        if (!ListProduct) {
+            for (let index = 0; index < ListProduct.length; index++) {
+                const resultAddingItemsInBasket = await UserModel.findByIdAndUpdate(id_user, {
+                    '$push': { 'basket.$productId': ListProduct[index], "basket.countItems": 1 }
+        
+                });                
+            }  
+        }
+        return res.status(HttpStatus.OK).json({
+               statusCodes: HttpStatus.OK,
+               where: location,
+               Modified: false,
+               resultAddingItemsInBasket
+           });
+        
+
+        } catch (error) {
+            next(error)
+        }
     }
 
 
