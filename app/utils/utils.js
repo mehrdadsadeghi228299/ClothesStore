@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const empty = require('is-empty');
 const jwt = require("jsonwebtoken");
 const createHttpError = require("http-errors");
+const { ProductModel } = require("../models/products.model");
 const ObjectId = require('mongoose').Types.ObjectId;
 const gen = '4420d1918bbcf7686defdf9560bb5087d20076de5f77b7cb4c3b40bf46ec428b';
 const originalHash = '$2a$10$7h/0SQ4FXRG5eX3602o3/.aO.RYkxKuhGkzvIXHLUiMJlFt1P.6Pe';
@@ -104,8 +105,8 @@ function isValidObjectId(id) {
     }
     return false;
 }
-async function checkExistProduct(id, model) {
-    const answer = await model.findOne(id)
+async function checkExistProduct(id) {
+    const answer = await ProductModel.findById(id)
     if (answer) return true
     return false
 }
