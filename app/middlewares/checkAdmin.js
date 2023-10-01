@@ -2,7 +2,7 @@ const createHttpError = require("http-errors");
 const JWT = require("jsonwebtoken");
 const { AdminModel } = require("../models/admin.model");
 const { UserModel } = require("../models/user.model");
-const ACCESS_TOKEN_SECRET_KEY = "CCEBD888251E547C877C43A324B5DE12468F431EA0D19A259751E2C80EE35876"
+require('dotenv').config();
 
 function getToken(headers) {
   const [bearer, token] = headers?.authorization?.split(" ") || [];
@@ -14,7 +14,7 @@ function getToken(headers) {
 function VerifyAdminAccessToken(req, res, next) {
   try {
     const token = getToken(req.headers);
-    JWT.verify(token, ACCESS_TOKEN_SECRET_KEY, async (err, payload) => {
+    JWT.verify(token, process.env.ACCESS_TOKEN_SECRET_KEY, async (err, payload) => {
       try {
         if (err) throw createHttpError.Unauthorized("وارد حساب کاربری خود شوید");
         const { mobile } = payload || {};
@@ -37,7 +37,7 @@ function VerifyAdminAccessToken(req, res, next) {
 function VerifyUserAccessToken(req, res, next) {
   try {
     const token = getToken(req.headers);
-    JWT.verify(token, ACCESS_TOKEN_SECRET_KEY, async (err, payload) => {
+    JWT.verify(token, process.env.ACCESS_TOKEN_SECRET_KEY, async (err, payload) => {
       try {
         if (err) throw createHttpError.Unauthorized("وارد حساب کاربری خود شوید");
         const { mobile } = payload || {};

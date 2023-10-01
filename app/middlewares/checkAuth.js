@@ -1,7 +1,5 @@
 const { StatusCodes: HttpStatus } = require("http-status-codes");
 const { AdminModel } = require("../models/admin.model");
-const ACCESS_TOKEN_SECRET_KEY = "CCEBD888251E547C877C43A324B5DE12468F431EA0D19A259751E2C80EE35876"
-const REFRESH_TOKEN_SECRET_KEY = "782285F688AC9B7CFF599230A39C49558A9D4B615B85AF706A80FAF52C897FB5"
 const {initRedis:redisClient} = require('../utils/initRedis');
 const JWT = require("jsonwebtoken");
 const createHttpError = require("http-errors");
@@ -17,7 +15,7 @@ function SignAccessToken(userId) {
         const options = {
             expiresIn: "1d"
         };
-        JWT.sign(payload, ACCESS_TOKEN_SECRET_KEY, options, (err, token) => {
+        JWT.sign(payload,  process.env.ACCESS_TOKEN_SECRET_KEY, options, (err, token) => {
             if (err) reject(createError.InternalServerError("خطای سروری"));
             resolve(token)
         });
@@ -32,7 +30,7 @@ function SignRefreshToken(userId) {
         const options = {
             expiresIn: "1y"
         };
-        JWT.sign(payload, REFRESH_TOKEN_SECRET_KEY, options, async (err, token) => {
+        JWT.sign(payload, process.env.REFRESH_TOKEN_SECRET_KEY, options, async (err, token) => {
             if (err) reject(createError.InternalServerError("خطای سروری"));
             await redisClient.SETEX(String(userId), (365 * 24 * 60 * 60), token);
             resolve(token)
@@ -42,7 +40,7 @@ function SignRefreshToken(userId) {
 
 function VerifyRefreshToken(token) {
     return new Promise((resolve, reject) => {
-        JWT.verify(token, REFRESH_TOKEN_SECRET_KEY, async (err, payload) => {
+        JWT.verify(token, process.env.REFRESH_TOKEN_SECRET_KEY, async (err, payload) => {
             if (err) reject(createError.Unauthorized("وارد حساب کاربری خود شوید"))
             const { mobile } = payload || {};
             const user = await AdminModel.findOne({ mobile }, { password: 0, otpMobile: 0 })
