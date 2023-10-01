@@ -1,5 +1,3 @@
-
-
 /**
  * @swagger
  *  components:
@@ -9,7 +7,7 @@
  *                  required:
  *                      -   id_products
  *                  properties:
- *                       id_products:
+ *                      id_products:
  *                          type: string
  *                          description: id products 
  *             DeleteOneProductsWishlist:
@@ -17,19 +15,17 @@
  *                  required:
  *                      -   id_products
  *                  properties:
- *                       id_products:
+ *                      id_products:
  *                          type: string
  *                          description: id products 
  *      
  */
-
 /**
  * @swagger
  *  tags:
  *      name : WishList-Section-Products
  *      description : WishList-Section-Products
  */
-
 /**
  * @swagger
  *  /getWishlist:
@@ -50,7 +46,6 @@
  *                  description: Internal Server Error 
  * 
  */
-
 /**
  * @swagger
  *  /SendsProductsToBasket:
@@ -71,8 +66,6 @@
  *                  description: Internal Server Error 
  * 
  */
-
- 
 /**
  * @swagger
  *  /AddWishlist:
@@ -98,7 +91,6 @@
  *              500: 
  *                  description: Internal Server Error 
  */
-
 /**
  * @swagger
  *  /DeleteOneProductsWishlist:
@@ -124,4 +116,3 @@
  *              500: 
  *                  description: Internal Server Error 
  */
-
