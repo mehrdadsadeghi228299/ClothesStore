@@ -1,3 +1,4 @@
+const { model } = require('mongoose');
 const { BasketProductShop } = require('../../controllers/basket/basket.controller');
 
 const router=require('express').Router();
@@ -7,3 +8,6 @@ router.put("/AddWishlist",VerifyUserAccessToken,BasketProductShop.AddWishlist);
 router.delete("/DeleteOneProductsWishlist",VerifyUserAccessToken,BasketProductShop.DeleteOneProductsWishlist);
 router.get("/SendsProductsToBasket",VerifyUserAccessToken,BasketProductShop.SendsProductsToBasket);
 
+module.exports={
+    WishlistRouter:router
+}

@@ -14,5 +14,5 @@ router.delete('/DeleteProductsInTopic',VerifyAdminAccessToken,TopicController.De
 
 
 module.exports={
-        SearchRouter:router
+        TopicRouter:router
 }
