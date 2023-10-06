@@ -4,8 +4,8 @@
  *     TopicUserSchemas:
  *         getSpecificTopic:
  *            type: object
- *              required:
- *               -   name
+ *            required:
+ *                  -   name
  *            properties:
  *               name:
  *                  type: string

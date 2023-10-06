@@ -2,9 +2,9 @@ const { default: mongoose, model } = require("mongoose");
 const { UserModel } = require("../../models/user.model");
 const { theFormOfAnswer, CheckExistUser } = require("../../utils/utils");
 const { StatusCodes: HttpStatus } = require("http-status-codes");
-const { Controller } = require("../base.Controller");
 const { models } = require("mongoose");
 const createHttpError = require("http-errors");
+const Controller = require("../base.Controller");
 
 
 class BasketProductShop extends Controller {
