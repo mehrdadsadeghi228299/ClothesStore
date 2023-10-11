@@ -65,7 +65,7 @@ class UserControllerClass extends Controller{
       }
     } 
        
-    async checkIsModifyAndSendCodeAccount(req,res){
+    async checkIsModifyAndSendCodeAccount(req,res,next){
         try {
             const {mobile}=req.body;
             const modify=await UserModel.findOne({mobile:mobile})
@@ -148,13 +148,6 @@ class UserControllerClass extends Controller{
         }
 
 
-    }
-    CheckAccessToken(req,res){
-        const authHeader = req.headers['authorization']
-        const token = authHeader && authHeader.split(' ')[1]
-        if (token == null) return res.sendStatus(HttpStatus.UNAUTHORIZED)        
-        checkAccessesToken(token,KEYTOKEN)
-        return true
     }
 
 

@@ -373,7 +373,6 @@ class AdminController extends Controller {
             next(error);
         }
     }
-    
     async put_updateListProductsIntoCategory(req, res, next) {
         try {
             var location = '/AdminControllerClass/put_updateListProductsCategory';
